@@ -1,10 +1,12 @@
-#include <iostream>
-
-#include "raylib.h"
+#include "Engine/Engine.h"
+#include "Game/Game.h"
 
 int main()
 {
-    InitWindow(1280, 720, "Hello world");
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    Game game {};
+    Engine engine {};
+
+    engine.init();
+    engine.run();
+    engine.close();
 }

@@ -28,8 +28,19 @@ endif()
 # Our Project
 add_executable(${PROJECT_NAME}
         src/Main.cpp
+
         src/Engine/Engine.cpp
         src/Engine/Engine.h
+
+        src/Engine/Configs/Settings.h
+
+        src/Engine/Entities/GameObject.cpp
+        src/Engine/Entities/GameObject.h
+        src/Engine/Entities/Sprite.cpp
+        src/Engine/Entities/Sprite.h
+
+        src/Game/Game.cpp
+        src/Game/Game.h
 )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)

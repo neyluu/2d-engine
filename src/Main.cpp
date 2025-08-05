@@ -3,10 +3,11 @@
 
 int main()
 {
-    Game game {};
     Engine engine {};
-
     engine.init();
+
+    Game game {};
+
     engine.run();
     engine.close();
 }

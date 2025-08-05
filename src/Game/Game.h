@@ -2,6 +2,9 @@
 #define INC_2D_ENGINE_GAME_H
 
 #include "../Engine/Entities/Sprite.h"
+#include "../Engine/Scenes/Scene.h"
+
+#include "Player.h"
 
 #include <vector>
 
@@ -10,10 +13,13 @@ class Game
 public:
     Game();
 private:
-    Sprite s1 {100, 200};
-    Sprite s2 {100, 250};
+    Scene scene {};
+//    Sprite s2 { &scene, "../Assets/player01.png"};
+    Sprite sprite { &scene, "../Assets/player01.png"};
 
-    std::vector<Sprite*> m_sprites;
+//    Player player;
+//    Sprite s3 {"../Assets/transparent.png"};
+//    Sprite s3 {"../Assets/gradient01.png"};
 };
 
 

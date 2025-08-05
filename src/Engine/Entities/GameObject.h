@@ -1,31 +1,24 @@
 #ifndef INC_2D_ENGINE_GAMEOBJECT_H
 #define INC_2D_ENGINE_GAMEOBJECT_H
 
-#include <list>
-#include <iostream>
-
+class Scene;
 
 class GameObject
 {
 public:
-    GameObject();
-    ~GameObject();
+    virtual ~GameObject() = default;
 
     virtual void update() = 0;
-    virtual void draw() = 0;
 
     void enable();
-    void disable(); // Should not be called inside update()
+    void disable();
+    bool isActive() const;
 
-    static void disableRequested();
-
-    static std::list<GameObject*> g_gameObjects;
 protected:
-    void requestDisable();
+    GameObject(Scene* owner) : m_scene(owner) { };
+    Scene* m_scene;
 private:
-    std::list<GameObject*>::iterator m_self {};
-    static std::list<GameObject*> m_disabledGameObjects;
-    static std::list<GameObject*> m_shouldBeDisabled;
+
     bool m_isActive = true;
 };
 

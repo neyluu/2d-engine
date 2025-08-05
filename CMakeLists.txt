@@ -38,9 +38,16 @@ add_executable(${PROJECT_NAME}
         src/Engine/Entities/GameObject.h
         src/Engine/Entities/Sprite.cpp
         src/Engine/Entities/Sprite.h
+        src/Engine/Entities/Drawable.cpp
+        src/Engine/Entities/Drawable.h
+
+        src/Engine/Scenes/Scene.cpp
+        src/Engine/Scenes/Scene.h
 
         src/Game/Game.cpp
         src/Game/Game.h
+        src/Game/Player.cpp
+        src/Game/Player.h
 )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)

@@ -1,28 +1,72 @@
 #include "Sprite.h"
-#include "../Configs/Settings.h"
 
-Sprite::Sprite(int x, int y)
+Sprite::Sprite(Scene* owner, std::string filename) : Drawable(owner)
+{
+    texture = LoadTexture(filename.c_str());
+    source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
+}
+
+Sprite::~Sprite()
+{
+    UnloadTexture(texture);
+}
+
+void Sprite::draw()
+{
+    float scaledTextureWidth = texture.width * scale.x;
+    float scaledTextureHeight = texture.height * scale.y;
+
+    Rectangle dest = { (float) x, (float) y, scaledTextureWidth, scaledTextureHeight };
+    Vector2 origin = {(float) (scaledTextureWidth / 2.0), (float) (scaledTextureHeight / 2.0)};
+
+    DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+}
+
+void Sprite::update() { }
+
+void Sprite::setX(int x)
+{
+    this->x = x;
+}
+
+void Sprite::setY(int y)
+{
+    this->y = y;
+}
+
+void Sprite::setPosition(int x, int y)
 {
     this->x = x;
     this->y = y;
 }
 
-void Sprite::draw()
+void Sprite::setScale(float scale)
 {
-    DrawRectangle(x, y, 10, 10, PINK);
+    setScale(scale, scale);
 }
 
-void Sprite::update()
+void Sprite::setScale(float scaleX, float scaleY)
 {
-    int c = 1;
-    int dx = GetRandomValue(-c, c);
-    int dy = GetRandomValue(-c, c);
-    x += dx;
-    y += dy;
-//
-    if(x - 10 < 0 || x + 10 > Settings::WINDOW_WIDTH
-    || y - 10 < 0 || y + 10 > Settings::WINDOW_HEIGHT)
-    {
-        requestDisable();
-    }
+    setScaleX(scaleX);
+    setScaleY(scaleY);
 }
+
+void Sprite::setScaleX(float scaleX)
+{
+    scale.x = scaleX;
+    texture.width = int(texture.width * scale.x);
+}
+
+void Sprite::setScaleY(float scaleY)
+{
+    scale.y = scaleY;
+    texture.height = int(texture.height * scale.y);
+}
+
+void Sprite::setRotation(float rotation)
+{
+    this->rotation = rotation;
+}
+
+
+

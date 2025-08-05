@@ -1,20 +1,21 @@
-#include <functional>
-#include <random>
 #include "Game.h"
+
+#include "../Engine/Configs/Settings.h"
 
 Game::Game()
 {
-    Sprite s5 {300, 300};
-    std::cout << "test\n";
-
-    for(int i = 0; i < 1000; i++)
-    {
-        Sprite* sprite = new Sprite {600,500};
-//        bool randBool = GetRandomValue(0, 1);
-
-//        if(randBool) sprite->enable();
-//        else         sprite->disable();
-
-        m_sprites.push_back(sprite);
-    }
+    scene.addObject(&sprite);
+//    s1.setX(100);
+//    s1.setY(150);
+////    s1.setScale(1);
+//
+//    s2.setX(-100);
+//    s2.setY(-100);
+//
+//    s3.setPosition(-200, 0);
+////    s2.setScale(0.5);
+//
+//    s3.setPosition(Settings::WINDOW_WIDTH / 2, Settings::WINDOW_HEIGHT / 2);
+//    s3.setScale(0.5, 1);
+//    s3.setRotation(135);
 }

@@ -14,3 +14,8 @@ bool GameObject::isActive() const
 {
     return m_isActive;
 }
+
+void GameObject::setScene(Scene *scene)
+{
+    this->m_owner = scene;
+}

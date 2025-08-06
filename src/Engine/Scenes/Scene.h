@@ -18,8 +18,11 @@ public:
     void draw();
 
     void addObject(GameObject* object);
+    void sortDrawables();
 
 private:
+    void insertDrawableSorted(Drawable* drawable);
+
     std::list<GameObject*> m_allObjects;
     std::list<Drawable*> m_allDrawables;
 };

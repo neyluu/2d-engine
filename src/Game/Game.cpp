@@ -8,11 +8,12 @@ Game::Game()
     SceneManager<std::string>::get().changeScene("main");
 //    SceneManager<std::string>::get().changeScene("main");
 
-
     scene.addObject(&sprite);
     scene.addObject(&sprite2);
 
-    sprite.setPosition(-300, 0);
+
+    sprite.setDepth(100);
+//    sprite.setPosition(-300, 0);
 
 
     scene2.addObject(&sprite2);

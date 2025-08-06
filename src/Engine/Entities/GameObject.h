@@ -14,10 +14,13 @@ public:
     void disable();
     bool isActive() const;
 
+    void setScene(Scene* scene);
+
 protected:
     GameObject() { };
-private:
+    Scene* m_owner = nullptr;
 
+private:
     bool m_isActive = true;
 };
 

@@ -14,6 +14,7 @@ public:
     Game();
 private:
     Scene scene {};
+    Scene scene2 {};
 //    Scene scene2 {};
     Sprite sprite { "../Assets/player01.png"};
     Sprite sprite2 { "../Assets/gradient01.png"};

@@ -3,9 +3,11 @@
 
 int main()
 {
-    SceneManager<int>& sm = SceneManager<int>::get();
+    Engine engine
+    {
+        SceneManager<std::string>::get()
+    };
 
-    Engine engine { sm };
     engine.init();
 
     Game game {};

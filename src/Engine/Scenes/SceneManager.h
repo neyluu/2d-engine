@@ -2,27 +2,18 @@
 #define INC_2D_ENGINE_SCENEMANAGER_H
 
 #include <map>
-#include <any>
-#include <string>
 
 #include "Scene.h"
+#include "ISceneManager.h"
 
 
-
-class ISceneManager
-{
-public:
-    virtual ~ISceneManager() = default;
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
-
-
-
-template <typename T_SceneID>
+template <class T_SceneID>
 class SceneManager : public ISceneManager
 {
 public:
+    SceneManager(const SceneManager&) = delete;
+    SceneManager& operator=(const SceneManager&) = delete;
+
     static SceneManager& get()
     {
         static SceneManager instance;
@@ -42,7 +33,6 @@ public:
     void addScene(T_SceneID id, Scene* scene)
     {
         if(m_scenes.find(id) != m_scenes.end()) return;
-
         m_scenes.insert(std::pair(id, scene));
     }
 
@@ -50,26 +40,19 @@ public:
     {
         auto it = m_scenes.find(id);
         if(it == m_scenes.end()) return;
-
-        m_currentScene = it->second.get();
+        m_currentScene = it->second;
     }
 
     Scene* GetCurrentScene() const
     {
         return m_currentScene;
     }
+
 private:
-    SceneManager() {}
+    SceneManager() = default;
+    ~SceneManager() override = default;
 
-    ~SceneManager()
-    {
-        m_scenes.clear();
-    }
-
-    SceneManager(const SceneManager&) = delete;
-    SceneManager& operator=(const SceneManager&) = delete;
-
-    std::map<T_SceneID, std::unique_ptr<Scene>> m_scenes;
+    std::map<T_SceneID, Scene*> m_scenes;
     Scene* m_currentScene = nullptr;
 };
 

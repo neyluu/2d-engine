@@ -16,7 +16,7 @@ void Player::update()
 //    sprite.setPosition(x, y);
 }
 
-Player::Player(Scene *owner) : GameObject(owner)
+Player::Player()
 {
 
 }

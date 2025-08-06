@@ -15,8 +15,7 @@ public:
     bool isActive() const;
 
 protected:
-    GameObject(Scene* owner) : m_scene(owner) { };
-    Scene* m_scene;
+    GameObject() { };
 private:
 
     bool m_isActive = true;

@@ -10,7 +10,7 @@
 class Sprite : public Drawable
 {
 public:
-    Sprite(Scene* owner, std::string filename);
+    Sprite(std::string filename);
     ~Sprite();
 
     void draw() override;

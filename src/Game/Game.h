@@ -14,12 +14,9 @@ public:
     Game();
 private:
     Scene scene {};
-//    Sprite s2 { &scene, "../Assets/player01.png"};
-    Sprite sprite { &scene, "../Assets/player01.png"};
-
-//    Player player;
-//    Sprite s3 {"../Assets/transparent.png"};
-//    Sprite s3 {"../Assets/gradient01.png"};
+//    Scene scene2 {};
+    Sprite sprite { "../Assets/player01.png"};
+    Sprite sprite2 { "../Assets/gradient01.png"};
 };
 
 

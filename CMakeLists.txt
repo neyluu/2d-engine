@@ -43,6 +43,8 @@ add_executable(${PROJECT_NAME}
 
         src/Engine/Scenes/Scene.cpp
         src/Engine/Scenes/Scene.h
+        src/Engine/Scenes/SceneManager.cpp
+        src/Engine/Scenes/SceneManager.h
 
         src/Game/Game.cpp
         src/Game/Game.h

@@ -20,8 +20,8 @@ public:
     void addObject(GameObject* object);
 
 private:
-    inline static std::list<GameObject*> m_allObjects;
-    inline static std::list<Drawable*> m_allDrawables;
+    std::list<GameObject*> m_allObjects;
+    std::list<Drawable*> m_allDrawables;
 };
 
 

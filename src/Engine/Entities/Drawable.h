@@ -8,7 +8,7 @@ class Scene;
 class Drawable : public GameObject
 {
 public:
-    Drawable(Scene* owner);
+    Drawable();
 
     virtual void draw() = 0;
 

@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(Scene* owner, std::string filename) : Drawable(owner)
+Sprite::Sprite(std::string filename)
 {
     texture = LoadTexture(filename.c_str());
     source = { 0.0, 0.0, (float) texture.width, (float) texture.height };

@@ -1,6 +1,7 @@
 #include "Engine.h"
 
-Engine::Engine() { }
+Engine::Engine(ISceneManager& sceneManager) : m_sceneManager(sceneManager)
+{}
 
 void Engine::init()
 {
@@ -42,7 +43,7 @@ void Engine::update()
 {
     m_camera.offset = { GetScreenWidth() / 2.0, GetScreenHeight() / 2.0 };
 
-    m_scene.update();
+    m_sceneManager.update();
 
 
 //    for(auto object : GameObject::g_gameObjects)
@@ -68,7 +69,7 @@ BeginDrawing();
         ClearBackground(DARKGRAY);
         DrawText("2D ENGINE", 30, 30, 48, BLACK);
 
-        m_scene.draw();
+        m_sceneManager.draw();
 //        for(auto object : GameObject::g_drawableObjects)
 //        {
 //            object->draw();
@@ -82,5 +83,3 @@ BeginDrawing();
 
 EndDrawing();
 }
-
-

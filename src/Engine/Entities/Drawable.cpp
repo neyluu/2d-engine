@@ -10,7 +10,7 @@ int Drawable::getDepth() const
     return m_depth;
 }
 
-Drawable::Drawable(Scene *owner) : GameObject(owner)
+Drawable::Drawable()
 {
 
 }

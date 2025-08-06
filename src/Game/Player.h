@@ -6,7 +6,7 @@
 class Player : public GameObject
 {
 public:
-    Player(Scene* owner);
+    Player();
 
     void update() override;
 private:

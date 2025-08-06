@@ -67,6 +67,3 @@ void Sprite::setRotation(float rotation)
 {
     this->rotation = rotation;
 }
-
-
-

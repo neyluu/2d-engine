@@ -10,7 +10,6 @@ void Engine::init()
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(Settings::WINDOW_WIDTH, Settings::WINDOW_HEIGHT, Settings::WINDOW_TITLE);
 
-//    SetWindowMonitor(1); // TODO TMP
     SetTargetFPS(Settings::TARGET_FPS);
 
     m_renderTexture = LoadRenderTexture(Settings::WINDOW_WIDTH, Settings::WINDOW_HEIGHT);
@@ -41,22 +40,8 @@ void Engine::close()
 
 void Engine::update()
 {
-    m_camera.offset = { GetScreenWidth() / 2.0, GetScreenHeight() / 2.0 };
-
+    m_camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
     m_sceneManager.update();
-
-
-//    for(auto object : GameObject::g_gameObjects)
-//    {
-//        object->update();
-//    }
-//
-//    for(auto object : GameObject::g_drawableObjects)
-//    {
-//        object->update();
-//    }
-//
-//    GameObject::disableRequested();
 }
 
 void Engine::draw()
@@ -70,12 +55,6 @@ BeginDrawing();
         DrawText("2D ENGINE", 30, 30, 48, BLACK);
 
         m_sceneManager.draw();
-//        for(auto object : GameObject::g_drawableObjects)
-//        {
-//            object->draw();
-//        }
-
-
 
     EndMode2D();
 

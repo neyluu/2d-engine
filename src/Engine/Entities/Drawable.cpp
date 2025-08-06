@@ -4,7 +4,6 @@
 void Drawable::setDepth(int depth)
 {
     this->m_depth = depth;
-
     if(m_owner) m_owner->sortDrawables();
 }
 

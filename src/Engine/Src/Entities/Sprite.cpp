@@ -1,7 +1,11 @@
 #include "Sprite.h"
 
+#include <filesystem>
+
 Sprite::Sprite(std::string filename)
 {
+
+    std::cout << "sprite: " << std::filesystem::current_path() << "\n";
     texture = LoadTexture(filename.c_str());
     source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
 }

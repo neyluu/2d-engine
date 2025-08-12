@@ -43,9 +43,14 @@ public:
         m_currentScene = it->second;
     }
 
-    Scene* GetCurrentScene() const
+    Scene* getCurrentScene() const
     {
         return m_currentScene;
+    }
+
+    Scene* getScene(T_SceneID type) const
+    {
+        return m_scenes.at(type);
     }
 
 private:

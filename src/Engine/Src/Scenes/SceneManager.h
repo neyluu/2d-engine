@@ -36,7 +36,7 @@ public:
         m_scenes.insert(std::pair(id, scene));
     }
 
-    void changeScene(T_SceneID id)
+    void setScene(T_SceneID id)
     {
         auto it = m_scenes.find(id);
         if(it == m_scenes.end()) return;

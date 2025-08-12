@@ -22,7 +22,8 @@ public:
         m_owner = scene;
         m_owner->addObject(&sprite);
 
-        sprite.setScale(0.75);
+        sprite.setScale(0.1);
+        sprite.setX(-400);
     }
 
     void update() override
@@ -31,8 +32,8 @@ public:
     }
 
 private:
+
     Sprite sprite { "Assets/bird.png" };
-//    Sprite sprite { "src/Games/FlappyBird/Assets/bird.png" };
 };
 
 
@@ -55,8 +56,6 @@ private:
 
 int main()
 {
-    std::cout << "main: " << std::filesystem::current_path() << "\n";
-
     Engine engine { sceneManager };
     engine.init();
 

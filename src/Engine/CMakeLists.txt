@@ -44,7 +44,10 @@ target_sources(Engine PRIVATE
 )
 
 target_link_libraries(Engine PUBLIC raylib)
-target_include_directories(Engine PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Inc")
+target_include_directories(Engine PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/Inc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Src"
+)
 
 # Checks if OSX and links appropriate frameworks (Only required on MacOS)
 if (APPLE)

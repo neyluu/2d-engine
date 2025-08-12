@@ -1,12 +1,10 @@
 #include "Sprite.h"
 
-#include <filesystem>
-
 Sprite::Sprite(std::string filename)
 {
 
-    std::cout << "sprite: " << std::filesystem::current_path() << "\n";
     texture = LoadTexture(filename.c_str());
+    SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
     source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
 }
 
@@ -20,8 +18,16 @@ void Sprite::draw()
     float scaledTextureWidth = texture.width * scale.x;
     float scaledTextureHeight = texture.height * scale.y;
 
-    Rectangle dest = { (float) x, (float) y, scaledTextureWidth, scaledTextureHeight };
-    Vector2 origin = {(float) (scaledTextureWidth / 2.0), (float) (scaledTextureHeight / 2.0)};
+    Rectangle dest = {
+            (float) x,
+            (float) y,
+            scaledTextureWidth,
+            scaledTextureHeight
+    };
+    Vector2 origin = {
+            (float) (scaledTextureWidth / 2.0),
+            (float) (scaledTextureHeight / 2.0)
+    };
 
     DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
@@ -58,13 +64,11 @@ void Sprite::setScale(float scaleX, float scaleY)
 void Sprite::setScaleX(float scaleX)
 {
     scale.x = scaleX;
-    texture.width = int(texture.width * scale.x);
 }
 
 void Sprite::setScaleY(float scaleY)
 {
     scale.y = scaleY;
-    texture.height = int(texture.height * scale.y);
 }
 
 void Sprite::setRotation(float rotation)

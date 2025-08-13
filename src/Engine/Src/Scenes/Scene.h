@@ -7,7 +7,8 @@
 
 #include "../Entities/GameObject.h"
 #include "../Entities/Drawable.h"
-
+#include "../Entities/Collider.h"
+#include "../Entities/ColliderManager.h"
 
 class Scene
 {
@@ -22,6 +23,8 @@ public:
 
 private:
     void insertDrawableSorted(Drawable* drawable);
+
+    ColliderManager m_colliderManager;
 
     std::list<GameObject*> m_allObjects;
     std::list<Drawable*> m_allDrawables;

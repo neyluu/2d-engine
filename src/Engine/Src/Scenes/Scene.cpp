@@ -11,6 +11,8 @@ void Scene::update()
     {
         if(object->isActive()) object->update();
     }
+
+    m_colliderManager.update();
 }
 
 void Scene::draw()
@@ -29,6 +31,10 @@ void Scene::addObject(GameObject* object)
     {
         m_allDrawables.push_back(drawable);
        sortDrawables();
+    }
+    if(auto collider = dynamic_cast<Collider*>(object))
+    {
+        m_colliderManager.addCollider(collider);
     }
 
     m_allObjects.push_back(object);

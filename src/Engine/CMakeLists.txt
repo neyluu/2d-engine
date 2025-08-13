@@ -30,13 +30,26 @@ target_sources(Engine PRIVATE
 
         Src/Engine.cpp
         Src/Engine.h
+
         Src/Configs/Settings.h
+
         Src/Entities/GameObject.cpp
         Src/Entities/GameObject.h
         Src/Entities/Sprite.cpp
         Src/Entities/Sprite.h
         Src/Entities/Drawable.cpp
         Src/Entities/Drawable.h
+        Src/Entities/Collider.cpp
+        Src/Entities/Collider.h
+        Src/Entities/BoxCollider.cpp
+        Src/Entities/BoxCollider.h
+        Src/Entities/RigidBody.cpp
+        Src/Entities/RigidBody.h
+        Src/Entities/ColliderManager.cpp
+        Src/Entities/ColliderManager.h
+        Src/Entities/CircleCollider.cpp
+        Src/Entities/CircleCollider.h
+
         Src/Scenes/Scene.cpp
         Src/Scenes/Scene.h
         Src/Scenes/SceneManager.h

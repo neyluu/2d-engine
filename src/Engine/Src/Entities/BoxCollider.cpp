@@ -17,7 +17,7 @@ void BoxCollider::setBox(Rectangle box)
 
 void BoxCollider::update()
 {
-
+    Collider::update();
 }
 
 void BoxCollider::draw()
@@ -51,7 +51,7 @@ bool BoxCollider::collideWith(CircleCollider* other)
     
 }
 
-void BoxCollider::moveFrom(Collider* other)
+void BoxCollider::pushAway(Collider* other)
 {
     other->moveFrom(this);
 }

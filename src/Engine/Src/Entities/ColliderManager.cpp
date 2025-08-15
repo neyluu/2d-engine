@@ -15,7 +15,37 @@ void ColliderManager::update()
 
             if(kinematicCollider->checkCollision(staticCollider))
             {
-                staticCollider->moveFrom(kinematicCollider);
+                // both colliding -> collider method that will handle everything ??
+
+                if(staticCollider->m_onCollide)
+                    staticCollider->m_onCollide();
+                if(kinematicCollider->m_onCollide)
+                    kinematicCollider->m_onCollide();
+
+                staticCollider->pushAway(kinematicCollider);
+            }
+        }
+
+        for(Collider* otherKinematic : s_kinematicColliders)
+        {
+            if(kinematicCollider == otherKinematic || ! otherKinematic->isActive()) continue;
+
+            if(kinematicCollider->checkCollision(otherKinematic))
+            {
+                // both colliding -> collider method that will handle everything ??
+
+                kinematicCollider->collide();
+                otherKinematic->collide();
+
+                kinematicCollider->onCollide();
+                kinematicCollider->onCollideUpdate();
+//                kinematicCollider->onCollideExit();
+
+                otherKinematic->onCollide();
+                otherKinematic->onCollideUpdate();
+//                otherKinematic->onCollideExit();
+
+//                staticCollider->pushAway(kinematicCollider);
             }
         }
     }

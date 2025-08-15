@@ -65,6 +65,9 @@ public:
         mov1.setKinematic(true);
         mov2.setKinematic(true);
 
+//        mov1.setOnCollide([]
+//                          { std::cout << "Collide!\n"; });
+
         mov1.m_isVisible = true;
         mov2.m_isVisible = true;
         col2.m_isVisible = true;

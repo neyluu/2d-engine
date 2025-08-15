@@ -21,7 +21,7 @@ public:
     bool collideWith(BoxCollider* other) override;
     bool collideWith(CircleCollider* other) override;
 
-    void moveFrom(Collider* other) override;
+    void pushAway(Collider* other) override;
     void moveFrom(BoxCollider* other) override;
     void moveFrom(CircleCollider* other) override;
 

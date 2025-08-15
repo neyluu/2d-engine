@@ -30,7 +30,7 @@ void BoxCollider::draw()
 
 bool BoxCollider::checkCollision(Collider* other)
 {
-    canMove.enableAll();
+    m_canMove.enableAll();
     return other->collideWith(this);
 }
 
@@ -81,12 +81,12 @@ void BoxCollider::moveFrom(BoxCollider* other)
             if(dx > 0)
             {
                 m_box.x += overlapX;
-                canMove.left = false;
+                m_canMove.left = false;
             }
             else
             {
                 m_box.x -= overlapX;
-                canMove.right = false;
+                m_canMove.right = false;
             }
         }
         else
@@ -94,12 +94,12 @@ void BoxCollider::moveFrom(BoxCollider* other)
             if(dy > 0)
             {
                 m_box.y += overlapY;
-                canMove.up = false;
+                m_canMove.up = false;
             }
             else
             {
                 m_box.y -= overlapY;
-                canMove.down = false;
+                m_canMove.down = false;
             }
         }
     }
@@ -122,8 +122,8 @@ void BoxCollider::setPosition(float x, float y)
     int oldX = m_box.x;
     int oldY = m_box.y;
 
-    if((x < m_box.x && canMove.left) || (x > m_box.x && canMove.right)) m_box.x = x;
-    if((y < m_box.y && canMove.up) || (y > m_box.y && canMove.down))    m_box.y= y;
+    if((x < m_box.x && m_canMove.left) || (x > m_box.x && m_canMove.right)) m_box.x = x;
+    if((y < m_box.y && m_canMove.up) || (y > m_box.y && m_canMove.down)) m_box.y= y;
 
     m_moveVector = { x - oldX, y - oldY};
 }

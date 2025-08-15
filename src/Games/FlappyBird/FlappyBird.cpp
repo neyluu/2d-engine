@@ -55,24 +55,35 @@ public:
         SceneManager<SceneType>::get().setScene(SceneType::GAME);
         m_gameScene.addObject(this);
         m_gameScene.addObject(&m_player);
-        m_gameScene.addObject(&col);
+
+        m_gameScene.addObject(&mov1);
+        m_gameScene.addObject(&mov2);
+
         m_gameScene.addObject(&col2);
         m_gameScene.addObject(&col3);
 
-        col.m_isKinematic = true;
+        mov1.setKinematic(true);
+        mov2.setKinematic(true);
 
-        col.m_isVisible = true;
+        mov1.m_isVisible = true;
+        mov2.m_isVisible = true;
         col2.m_isVisible = true;
         col3.m_isVisible = true;
     }
 
     void update() override
     {
+        handleMovingMov1();
+        handleMovingMov2();
+    }
+
+    void handleMovingMov1()
+    {
         int dx = 0;
         int dy = 0;
         float dt = GetFrameTime();
 
-        Rectangle rect = col.getBox();
+        Rectangle rect = mov1.getBox();
 
         int x = rect.x;
         int y = rect.y;
@@ -101,9 +112,46 @@ public:
         y += dy;
 //        std::cout << dx << " " << dy << "\n";
 
-        col.setPosition(x, y);
+        mov1.setPosition(x, y);
     }
 
+    void handleMovingMov2()
+    {
+        int dx = 0;
+        int dy = 0;
+        float dt = GetFrameTime();
+
+        Rectangle rect = mov2.getBox();
+
+        int x = rect.x;
+        int y = rect.y;
+
+
+        float change = speed * dt;
+
+        if(IsKeyDown(KEY_UP))
+        {
+            dy -= change;
+        }
+        if(IsKeyDown(KEY_RIGHT))
+        {
+            dx += change;
+        }
+        if(IsKeyDown(KEY_DOWN))
+        {
+            dy += change;
+        }
+        if(IsKeyDown(KEY_LEFT))
+        {
+            dx -= change;
+        }
+
+        x += dx;
+        y += dy;
+//        std::cout << dx << " " << dy << "\n";
+
+        mov2.setPosition(x, y);
+    }
 private:
 //    int colX = -200;
 //    int colY = 80;
@@ -111,7 +159,8 @@ private:
 
     Scene m_gameScene {};
     Player m_player { &m_gameScene };
-    BoxCollider col { Rectangle {-200, 80, 200, 200} };
+    BoxCollider mov1 {Rectangle {-200, 80, 100, 100} };
+    BoxCollider mov2 {Rectangle {-200, -200, 100, 100} };
     BoxCollider col2 { Rectangle {0, 0, 150, 150} };
     BoxCollider col3 { Rectangle {-50, -50, 100, 100} };
 

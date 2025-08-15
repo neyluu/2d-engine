@@ -14,7 +14,10 @@ public:
     void update();
 
     static void addCollider(Collider* collider);
-    static std::vector<Collider*> m_colliders;
+    static void removeCollider(Collider* collider);
+private:
+    static std::vector<Collider*> s_staticColliders;
+    static std::vector<Collider*> s_kinematicColliders;
 };
 
 #endif //INC_2D_ENGINE_COLLIDERMANAGER_H

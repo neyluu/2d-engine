@@ -30,11 +30,11 @@ void Scene::addObject(GameObject* object)
     if(auto drawable = dynamic_cast<Drawable*>(object))
     {
         m_allDrawables.push_back(drawable);
-       sortDrawables();
+        sortDrawables();
     }
     if(auto collider = dynamic_cast<Collider*>(object))
     {
-        m_colliderManager.addCollider(collider);
+        ColliderManager::addCollider(collider);
     }
 
     m_allObjects.push_back(object);

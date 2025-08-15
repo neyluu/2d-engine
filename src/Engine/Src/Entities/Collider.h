@@ -1,6 +1,9 @@
 #ifndef INC_2D_ENGINE_COLLIDER_H
 #define INC_2D_ENGINE_COLLIDER_H
 
+#include <vector>
+#include <algorithm>
+
 #include "Drawable.h"
 #include "ColliderManager.h"
 
@@ -30,11 +33,18 @@ public:
     virtual void moveFrom(BoxCollider* other) = 0;
     virtual void moveFrom(CircleCollider* other) = 0;
 
+    bool isKinematic() const;
+    void setKinematic(bool isKinematic);
+
     bool m_isVisible = false;
-    bool m_isKinematic = false;
 protected:
-    CanMove canMove;
+    CanMove m_canMove;
+    bool m_isKinematic = false;
 private:
+    void addTo(std::vector<Collider*>& vector);
+    void removeFrom(std::vector<Collider*>& vector);
+
+    friend class ColliderManager;
 };
 
 

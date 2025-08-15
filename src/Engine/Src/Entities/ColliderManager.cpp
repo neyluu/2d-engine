@@ -1,14 +1,15 @@
 #include "ColliderManager.h"
 
-std::vector<Collider*> ColliderManager::m_colliders;
+std::vector<Collider*> ColliderManager::s_staticColliders;
+std::vector<Collider*> ColliderManager::s_kinematicColliders;
 
 void ColliderManager::update()
 {
-    for(Collider* kinematicCollider : m_colliders)
+    for(Collider* kinematicCollider : s_kinematicColliders)
     {
-        if( ! kinematicCollider->m_isKinematic || ! kinematicCollider->isActive()) continue;
+        if( ! kinematicCollider->isActive()) continue;
 
-        for(Collider* staticCollider : m_colliders)
+        for(Collider* staticCollider : s_staticColliders)
         {
             if(staticCollider == kinematicCollider || ! staticCollider->isActive()) continue;
 
@@ -22,5 +23,10 @@ void ColliderManager::update()
 
 void ColliderManager::addCollider(Collider* collider)
 {
-    ColliderManager::m_colliders.push_back(collider);
+    collider->addTo((collider->isKinematic()) ? s_kinematicColliders : s_staticColliders);
+}
+
+void ColliderManager::removeCollider(Collider* collider)
+{
+    collider->removeFrom((collider->isKinematic()) ? s_kinematicColliders : s_staticColliders);
 }

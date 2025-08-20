@@ -1,5 +1,10 @@
 #include "GameObject.h"
 
+GameObject::GameObject()
+{
+    m_id = s_lastId++;
+}
+
 void GameObject::enable()
 {
     m_isActive = true;
@@ -18,4 +23,9 @@ bool GameObject::isActive() const
 void GameObject::setScene(Scene *scene)
 {
     this->m_owner = scene;
+}
+
+int GameObject::getId() const
+{
+    return m_id;
 }

@@ -16,12 +16,16 @@ public:
 
     void setScene(Scene* scene);
 
+    int getId() const;
+
 protected:
-    GameObject() { };
+    GameObject();
     Scene* m_owner = nullptr;
+    int m_id = 0;
 
 private:
     bool m_isActive = true;
+    inline static int s_lastId = 0;
 };
 
 

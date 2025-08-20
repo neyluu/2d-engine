@@ -59,19 +59,47 @@ public:
         m_gameScene.addObject(&mov1);
         m_gameScene.addObject(&mov2);
 
-        m_gameScene.addObject(&col2);
-        m_gameScene.addObject(&col3);
+//        m_gameScene.addObject(&col2);
+//        m_gameScene.addObject(&col3);
+        m_gameScene.addObject(&col4);
 
         mov1.setKinematic(true);
         mov2.setKinematic(true);
+        col4.setKinematic(true);
+
+        mov1.setOnCollideEnter([]{std::cout << "Enter\n";});
+        mov1.setOnCollide([]{std::cout << "Collide!\n";});
+        mov1.setOnCollideExit([]{std::cout << "Exit!\n";});
+
+        mov1.setOnCollideEnter([]{std::cout << "Enter222\n";}, col4);
+        mov1.setOnCollide([]{std::cout << "Collide!222\n";}, col4);
+        mov1.setOnCollideExit([]{std::cout << "Exit!222\n";}, col4);
 
 //        mov1.setOnCollide([]
 //                          { std::cout << "Collide!\n"; });
+
+//        mov1.setOnCollideEnter([]
+//                               {
+//                                   std::cout << "1 collides with 2!\n";
+//                               }, mov2);
+
+
+        //        mov2.setOnCollide([] {
+//            std::cout << "2 collides with 1!\n";
+//        }, mov1);
+
+
+
+
+
+
+
 
         mov1.m_isVisible = true;
         mov2.m_isVisible = true;
         col2.m_isVisible = true;
         col3.m_isVisible = true;
+        col4.m_isVisible = true;
     }
 
     void update() override
@@ -164,8 +192,11 @@ private:
     Player m_player { &m_gameScene };
     BoxCollider mov1 {Rectangle {-200, 80, 100, 100} };
     BoxCollider mov2 {Rectangle {-200, -200, 100, 100} };
+
     BoxCollider col2 { Rectangle {0, 0, 150, 150} };
     BoxCollider col3 { Rectangle {-50, -50, 100, 100} };
+
+    BoxCollider col4 { Rectangle {-200, 200, 420, 69} };
 
 
 };

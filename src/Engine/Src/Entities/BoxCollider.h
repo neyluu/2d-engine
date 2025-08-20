@@ -14,8 +14,8 @@ public:
     BoxCollider() = default;
     BoxCollider(Rectangle box);
 
-    void update();
-    void draw();
+    void update() override;
+    void draw() override;
 
     bool checkCollision(Collider* other) override;
     bool collideWith(BoxCollider* other) override;

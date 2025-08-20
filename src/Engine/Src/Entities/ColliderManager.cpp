@@ -17,33 +17,35 @@ void ColliderManager::update()
             {
                 // both colliding -> collider method that will handle everything ??
 
-                if(staticCollider->m_onCollide)
-                    staticCollider->m_onCollide();
-                if(kinematicCollider->m_onCollide)
-                    kinematicCollider->m_onCollide();
+                if(staticCollider->m_onCollideEnter)
+                    staticCollider->m_onCollideEnter();
+                if(kinematicCollider->m_onCollideEnter)
+                    kinematicCollider->m_onCollideEnter();
 
                 staticCollider->pushAway(kinematicCollider);
             }
+
+
+//            kinematicCollider->onCollide(staticCollider);
         }
 
         for(Collider* otherKinematic : s_kinematicColliders)
         {
-            if(kinematicCollider == otherKinematic || ! otherKinematic->isActive()) continue;
+            if(kinematicCollider->getId() == otherKinematic->getId() || ! otherKinematic->isActive()) continue;
 
             if(kinematicCollider->checkCollision(otherKinematic))
             {
-                // both colliding -> collider method that will handle everything ??
-
                 kinematicCollider->collide();
-                otherKinematic->collide();
+
+                kinematicCollider->onCollideEnter();
+                kinematicCollider->onCollideEnter(*otherKinematic);
 
                 kinematicCollider->onCollide();
-                kinematicCollider->onCollideUpdate();
-//                kinematicCollider->onCollideExit();
+                kinematicCollider->onCollide(*otherKinematic);
 
-                otherKinematic->onCollide();
-                otherKinematic->onCollideUpdate();
-//                otherKinematic->onCollideExit();
+                // OnExit is called inside Collider update,
+                // here only ids of collider for which onExit should be called is added
+                kinematicCollider->m_onExitCallsIds.insert(otherKinematic->getId());
 
 //                staticCollider->pushAway(kinematicCollider);
             }

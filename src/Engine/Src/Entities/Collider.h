@@ -2,6 +2,8 @@
 #define INC_2D_ENGINE_COLLIDER_H
 
 #include <vector>
+#include <map>
+#include <set>
 #include <algorithm>
 #include <functional>
 
@@ -36,9 +38,12 @@ public:
     virtual void moveFrom(BoxCollider* other) = 0;
     virtual void moveFrom(CircleCollider* other) = 0;
 
+    void setOnCollideEnter(const std::function<void()>& function);
     void setOnCollide(const std::function<void()>& function);
-    void setOnCollideUpdate(const std::function<void()>& function);
     void setOnCollideExit(const std::function<void()>& function);
+    void setOnCollideEnter(const std::function<void()>& function, const Collider& collider);
+    void setOnCollide(const std::function<void()>& function, const Collider& collider);
+    void setOnCollideExit(const std::function<void()>& function, const Collider& collider);
 
     bool isKinematic() const;
     void setKinematic(bool isKinematic);
@@ -53,17 +58,30 @@ private:
 
     void collide();
 
+    void onCollideEnter();
     void onCollide();
-    void onCollideUpdate();
     void onCollideExit();
+    void onCollideEnter(const Collider& collider);
+    void onCollide(const Collider& collider);
+    void onCollideExit(const Collider& collider);
 
+    bool isOnEnter() const;
+    bool isOnExit() const;
+
+    void onCollideWithCollider(const std::map<int, std::function<void()>>& map, int id);
+
+    std::function<void()> m_onCollideEnter;
     std::function<void()> m_onCollide;
-    std::function<void()> m_onCollideUpdate;
     std::function<void()> m_onCollideExit;
 
     bool m_wasColliding = false; // Last frame
     bool m_isCollidingNow = false;
-    bool m_collideEntered = false;
+
+    std::set<int> m_onExitCallsIds;
+
+    std::map<int, std::function<void()>> m_onCollideEnterColliders;
+    std::map<int, std::function<void()>> m_onCollideColliders;
+    std::map<int, std::function<void()>> m_onCollideExitColliders;
 
     friend class ColliderManager;
 };

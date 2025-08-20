@@ -10,13 +10,19 @@ void CanMove::enableAll()
 
 void Collider::update()
 {
-    if(m_isCollidingNow) onCollideUpdate();
-//    if(!isKinematic()) return;
-//    std::cout << "colliding: " << m_colliding << "\n";
+    if(isOnExit())
+    {
+        onCollideExit();
 
-    onCollideExit();
-    // necessary !!!
+        for(const int id : m_onExitCallsIds)
+        {
+            onCollideWithCollider(m_onCollideExitColliders, id);
+        }
 
+        m_onExitCallsIds.clear();
+    }
+
+    m_wasColliding = m_isCollidingNow;
     m_isCollidingNow = false;
 }
 
@@ -48,53 +54,120 @@ void Collider::removeFrom(std::vector<Collider*>& vector)
     if(it != vector.end()) vector.erase(it);
 }
 
-void Collider::setOnCollide(const std::function<void()>& function)
+void Collider::setOnCollideEnter(const std::function<void()>& function)
 {
-    this->m_onCollide = function;
+    m_onCollideEnter = function;
 }
 
-void Collider::setOnCollideUpdate(const std::function<void()>& function)
+void Collider::setOnCollideEnter(const std::function<void()>& function, const Collider& collider)
 {
-    this->m_onCollideUpdate = function;
+    if(getId() == collider.getId()) return;
+
+    m_onCollideEnterColliders.insert(std::pair(collider.getId(), function));
+}
+
+void Collider::setOnCollide(const std::function<void()>& function)
+{
+    m_onCollide = function;
+}
+
+void Collider::setOnCollide(const std::function<void()>& function, const Collider& collider)
+{
+    if(getId() == collider.getId()) return;
+
+    m_onCollideColliders.insert(std::pair(collider.getId(), function));
 }
 
 void Collider::setOnCollideExit(const std::function<void()>& function)
 {
-    this->m_onCollideExit = function;
+    m_onCollideExit = function;
+}
+
+void Collider::setOnCollideExit(const std::function<void()>& function, const Collider& collider)
+{
+    if(getId() == collider.getId()) return;
+
+    m_onCollideExitColliders.insert(std::pair(collider.getId(), function));
 }
 
 void Collider::collide()
 {
-    m_wasColliding = m_isCollidingNow;
     m_isCollidingNow = true;
+}
+
+void Collider::onCollideEnter()
+{
+    if( ! isOnEnter())
+    {
+        return;
+    }
+
+    if(m_onCollideEnter) m_onCollideEnter();
+}
+
+void Collider::onCollideEnter(const Collider& collider)
+{
+    const int id = collider.getId();
+
+    if( ! isOnEnter() || ! m_onCollideEnterColliders.contains(id))
+    {
+        return;
+    }
+
+    onCollideWithCollider(m_onCollideEnterColliders, id);
 }
 
 void Collider::onCollide()
 {
-    if(m_collideEntered) return;
-
-    m_collideEntered = true;
-    if(m_onCollide) m_onCollide();
-
-    std::cout << std::boolalpha;
-    std::cout << m_collideEntered << " " << m_wasColliding << " " << m_isCollidingNow << "\n";
-
-    std::cout << "onColliderEnter!\n";
+    if(m_onCollide)
+    {
+        m_onCollide();
+    }
 }
 
-void Collider::onCollideUpdate()
+void Collider::onCollide(const Collider& collider)
 {
-    if(m_onCollideUpdate) m_onCollideUpdate();
-
-    std::cout << "onColliderUPDATE!\n";
+    onCollideWithCollider(m_onCollideColliders, collider.getId());
 }
 
 void Collider::onCollideExit()
 {
-    if(!m_isCollidingNow && m_wasColliding)
+    if(! isOnExit() || ! m_onCollideExit)
     {
-        m_wasColliding = false;
-        std::cout << "onCollideEXIT!!!!!!!\n";
-        m_collideEntered = false;
+        return;
     }
+
+    m_onCollideExit();
+}
+
+void Collider::onCollideExit(const Collider& collider)
+{
+    if(! isOnExit())
+    {
+        return;
+    }
+
+    onCollideWithCollider(m_onCollideExitColliders, collider.getId());
+}
+
+void Collider::onCollideWithCollider(const std::map<int, std::function<void()>>& map, int id)
+{
+    if(map.contains(id))
+    {
+        const std::function<void()>& function = map.at(id);
+        if(function)
+        {
+            function();
+        }
+    }
+}
+
+bool Collider::isOnEnter() const
+{
+    return ! m_wasColliding && m_isCollidingNow;
+}
+
+bool Collider::isOnExit() const
+{
+    return m_wasColliding && ! m_isCollidingNow;
 }

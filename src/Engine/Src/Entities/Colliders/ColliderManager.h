@@ -16,6 +16,8 @@ public:
     static void addCollider(Collider* collider);
     static void removeCollider(Collider* collider);
 private:
+    void handleCollision(Collider* first, Collider* second);
+
     static std::vector<Collider*> s_staticColliders;
     static std::vector<Collider*> s_kinematicColliders;
 };

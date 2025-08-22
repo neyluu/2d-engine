@@ -59,8 +59,8 @@ public:
         m_gameScene.addObject(&mov1);
         m_gameScene.addObject(&mov2);
 
-//        m_gameScene.addObject(&col2);
-//        m_gameScene.addObject(&col3);
+        m_gameScene.addObject(&col2);
+        m_gameScene.addObject(&col3);
         m_gameScene.addObject(&col4);
 
         mov1.setKinematic(true);

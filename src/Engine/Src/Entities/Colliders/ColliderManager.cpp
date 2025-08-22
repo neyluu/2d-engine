@@ -15,18 +15,9 @@ void ColliderManager::update()
 
             if(kinematicCollider->checkCollision(staticCollider))
             {
-                // both colliding -> collider method that will handle everything ??
-
-                if(staticCollider->m_onCollideEnter)
-                    staticCollider->m_onCollideEnter();
-                if(kinematicCollider->m_onCollideEnter)
-                    kinematicCollider->m_onCollideEnter();
-
+                handleCollision(kinematicCollider, staticCollider);
                 staticCollider->pushAway(kinematicCollider);
             }
-
-
-//            kinematicCollider->onCollide(staticCollider);
         }
 
         for(Collider* otherKinematic : s_kinematicColliders)
@@ -35,18 +26,7 @@ void ColliderManager::update()
 
             if(kinematicCollider->checkCollision(otherKinematic))
             {
-                kinematicCollider->collide();
-
-                kinematicCollider->onCollideEnter();
-                kinematicCollider->onCollideEnter(*otherKinematic);
-
-                kinematicCollider->onCollide();
-                kinematicCollider->onCollide(*otherKinematic);
-
-                // OnExit is called inside Collider update,
-                // here only ids of collider for which onExit should be called is added
-                kinematicCollider->m_onExitCallsIds.insert(otherKinematic->getId());
-
+                handleCollision(kinematicCollider, otherKinematic);
 //                staticCollider->pushAway(kinematicCollider);
             }
         }
@@ -61,4 +41,19 @@ void ColliderManager::addCollider(Collider* collider)
 void ColliderManager::removeCollider(Collider* collider)
 {
     collider->removeFrom((collider->isKinematic()) ? s_kinematicColliders : s_staticColliders);
+}
+
+void ColliderManager::handleCollision(Collider* first, Collider* second)
+{
+    first->collide();
+
+    first->onCollideEnter();
+    first->onCollideEnter(*second);
+
+    first->onCollide();
+    first->onCollide(*second);
+
+    // OnExit is called inside Collider update,
+    // here only ids of collider for which onExit should be called is added
+    first->m_onExitCallsIds.insert(second->getId());
 }

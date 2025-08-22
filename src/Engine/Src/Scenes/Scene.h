@@ -7,8 +7,8 @@
 
 #include "../Entities/GameObject.h"
 #include "../Entities/Drawable.h"
-#include "../Entities/Collider.h"
-#include "../Entities/ColliderManager.h"
+#include "Entities/Colliders/Collider.h"
+#include "Entities/Colliders/ColliderManager.h"
 
 class Scene
 {

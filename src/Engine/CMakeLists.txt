@@ -39,16 +39,16 @@ target_sources(Engine PRIVATE
         Src/Entities/Sprite.h
         Src/Entities/Drawable.cpp
         Src/Entities/Drawable.h
-        Src/Entities/Collider.cpp
-        Src/Entities/Collider.h
-        Src/Entities/BoxCollider.cpp
-        Src/Entities/BoxCollider.h
+        Src/Entities/Colliders/Collider.cpp
+        Src/Entities/Colliders/Collider.h
+        Src/Entities/Colliders/BoxCollider.cpp
+        Src/Entities/Colliders/BoxCollider.h
         Src/Entities/RigidBody.cpp
         Src/Entities/RigidBody.h
-        Src/Entities/ColliderManager.cpp
-        Src/Entities/ColliderManager.h
-        Src/Entities/CircleCollider.cpp
-        Src/Entities/CircleCollider.h
+        Src/Entities/Colliders/ColliderManager.cpp
+        Src/Entities/Colliders/ColliderManager.h
+        Src/Entities/Colliders/CircleCollider.cpp
+        Src/Entities/Colliders/CircleCollider.h
 
         Src/Scenes/Scene.cpp
         Src/Scenes/Scene.h

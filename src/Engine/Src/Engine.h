@@ -10,26 +10,27 @@
 #include "Scenes/Scene.h"
 #include "Scenes/SceneManager.h"
 
-
-class Engine
+namespace e2d
 {
-public:
-    Engine(ISceneManager& sceneManager);
+    class Engine
+    {
+    public:
+        Engine(ISceneManager& sceneManager);
 
-    void init();
-    void run();
-    void close();
+        void init();
+        void run();
+        void close();
 
-private:
-    void update();
-    void draw();
+    private:
+        void update();
+        void draw();
 
-    bool m_running = false;
-    RenderTexture2D m_renderTexture {};
-    Camera2D m_camera {};
+        bool m_running = false;
+        RenderTexture2D m_renderTexture {};
+        Camera2D m_camera {};
 
-    ISceneManager& m_sceneManager;
-};
-
+        ISceneManager& m_sceneManager;
+    };
+}
 
 #endif //INC_2D_ENGINE_ENGINE_H

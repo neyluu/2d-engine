@@ -6,11 +6,4 @@
 #include "../../Src/Scenes/Scene.h"
 #include "../../Src/Scenes/SceneManager.h"
 
-//#include "../../Src/Engine.h"
-//
-//#include "../Configs/Settings.h"
-//
-//#include "../Scenes/Scene.h"
-//#include "../Scenes/SceneManager.h"
-
 #endif //INC_2D_ENGINE_CORE_H

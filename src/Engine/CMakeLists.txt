@@ -49,6 +49,8 @@ target_sources(Engine PRIVATE
         Src/Entities/Colliders/ColliderManager.h
         Src/Entities/Colliders/CircleCollider.cpp
         Src/Entities/Colliders/CircleCollider.h
+        Src/Entities/Transform.cpp
+        Src/Entities/Transform.h
 
         Src/Scenes/Scene.cpp
         Src/Scenes/Scene.h

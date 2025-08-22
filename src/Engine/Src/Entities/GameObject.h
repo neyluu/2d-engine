@@ -1,32 +1,37 @@
 #ifndef INC_2D_ENGINE_GAMEOBJECT_H
 #define INC_2D_ENGINE_GAMEOBJECT_H
 
-class Scene;
 
-class GameObject
+namespace e2d
 {
-public:
-    virtual ~GameObject() = default;
+    class Scene;
 
-    virtual void update() = 0;
+    class GameObject
+    {
+    public:
+        virtual ~GameObject() = default;
 
-    void enable();
-    void disable();
-    bool isActive() const;
+        virtual void update() = 0;
 
-    void setScene(Scene* scene);
+        void enable();
+        void disable();
+        bool isActive() const;
 
-    int getId() const;
+        void setScene(Scene* scene);
 
-protected:
-    GameObject();
-    Scene* m_owner = nullptr;
-    int m_id = 0;
+        int getId() const;
 
-private:
-    bool m_isActive = true;
-    inline static int s_lastId = 0;
-};
+    protected:
+        GameObject();
+        Scene* m_owner = nullptr;
+        int m_id = 0;
+
+    private:
+        bool m_isActive = true;
+        inline static int s_lastId = 0;
+    };
+}
+
 
 
 #endif //INC_2D_ENGINE_GAMEOBJECT_H

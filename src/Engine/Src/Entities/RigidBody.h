@@ -1,11 +1,12 @@
 #ifndef INC_2D_ENGINE_RIGIDBODY_H
 #define INC_2D_ENGINE_RIGIDBODY_H
 
-
-class RigidBody
+namespace e2d
 {
+    class RigidBody
+    {
 
-};
-
+    };
+}
 
 #endif //INC_2D_ENGINE_RIGIDBODY_H

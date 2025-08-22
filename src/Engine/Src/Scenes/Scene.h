@@ -10,25 +10,27 @@
 #include "Entities/Colliders/Collider.h"
 #include "Entities/Colliders/ColliderManager.h"
 
-class Scene
+namespace e2d
 {
-public:
-    Scene() = default;
+    class Scene
+    {
+    public:
+        Scene() = default;
 
-    void update();
-    void draw();
+        void update();
+        void draw();
 
-    void addObject(GameObject* object);
-    void sortDrawables();
+        void addObject(GameObject* object);
+        void sortDrawables();
 
-private:
-    void insertDrawableSorted(Drawable* drawable);
+    private:
+        void insertDrawableSorted(Drawable* drawable);
 
-    ColliderManager m_colliderManager;
+        ColliderManager m_colliderManager;
 
-    std::list<GameObject*> m_allObjects;
-    std::list<Drawable*> m_allDrawables;
-};
-
+        std::list<GameObject*> m_allObjects;
+        std::list<Drawable*> m_allDrawables;
+    };
+}
 
 #endif //INC_2D_ENGINE_SCENE_H

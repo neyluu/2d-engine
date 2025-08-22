@@ -1,14 +1,18 @@
 #include "Drawable.h"
 #include "../Scenes/Scene.h"
 
-void Drawable::setDepth(int depth)
+namespace e2d
 {
-    this->m_depth = depth;
-    if(m_owner) m_owner->sortDrawables();
+    void Drawable::setDepth(int depth)
+    {
+        this->m_depth = depth;
+        if(m_owner) m_owner->sortDrawables();
+    }
+
+    int Drawable::getDepth() const
+    {
+        return m_depth;
+    }
 }
 
-int Drawable::getDepth() const
-{
-    return m_depth;
-}
 

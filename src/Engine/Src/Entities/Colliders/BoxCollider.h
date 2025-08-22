@@ -7,36 +7,37 @@
 #include "Collider.h"
 #include "CircleCollider.h"
 
-
-class BoxCollider : public Collider
+namespace e2d
 {
-public:
-    BoxCollider() = default;
-    BoxCollider(Rectangle box);
+    class BoxCollider : public Collider
+    {
+    public:
+        BoxCollider() = default;
+        BoxCollider(Rectangle box);
 
-    void update() override;
-    void draw() override;
+        void update() override;
+        void draw() override;
 
-    bool checkCollision(Collider* other) override;
-    bool collideWith(BoxCollider* other) override;
-    bool collideWith(CircleCollider* other) override;
+        bool checkCollision(Collider* other) override;
+        bool collideWith(BoxCollider* other) override;
+        bool collideWith(CircleCollider* other) override;
 
-    void pushAway(Collider* other) override;
-    void moveFrom(BoxCollider* other) override;
-    void moveFrom(CircleCollider* other) override;
+        void pushAway(Collider* other) override;
+        void moveFrom(BoxCollider* other) override;
+        void moveFrom(CircleCollider* other) override;
 
 
-    Rectangle getBox();
-    void setBox(Rectangle box);
-    void setPosition(float x, float y);
-    void setPosition(Vector2 position);
-    void setSize(float width, float height);
-    void setSize(Vector2 size);
+        Rectangle getBox();
+        void setBox(Rectangle box);
+        void setPosition(float x, float y);
+        void setPosition(Vector2 position);
+        void setSize(float width, float height);
+        void setSize(Vector2 size);
 
-private:
-    Rectangle m_box { 0 };
-    Vector2 m_moveVector { 0 };
-};
-
+    private:
+        Rectangle m_box { 0 };
+        Vector2 m_moveVector { 0 };
+    };
+}
 
 #endif //INC_2D_ENGINE_BOXCOLLIDER_H

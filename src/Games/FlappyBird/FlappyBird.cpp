@@ -4,6 +4,7 @@
 #include "Engine/Core.h"
 #include "Engine/Entities.h"
 
+using namespace e2d;
 
 enum SceneType
 {
@@ -12,7 +13,7 @@ enum SceneType
 };
 
 
-class Player : public GameObject
+class Player : public e2d::GameObject
 {
 public:
     Player(Scene* scene)
@@ -21,18 +22,20 @@ public:
         m_owner->addObject(&m_sprite);
 
         m_sprite.setScale(0.1);
+        m_sprite.setScale(0.1, 1);
         m_sprite.setX(m_positionX);
+
     }
 
     void update() override
     {
         float dt = GetFrameTime();
 
-        if(IsKeyDown(KEY_SPACE)) velocity *= -1;
-
-        m_positionY += (100 * velocity) * dt;
-
-        m_sprite.setPosition(m_positionX, m_positionY);
+//        if(IsKeyDown(KEY_SPACE)) velocity *= -1;
+//
+//        m_positionY += (100 * velocity) * dt;
+//
+//        m_sprite.setPosition(m_positionX, m_positionY);
     }
 
 private:

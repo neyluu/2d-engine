@@ -1,58 +1,61 @@
 #include "Scene.h"
 
-bool compareDrawables(const Drawable* first, const Drawable* second)
+bool compareDrawables(const e2d::Drawable* first, const e2d::Drawable* second)
 {
     return first->getDepth() < second->getDepth();
 }
 
-void Scene::update()
+namespace e2d
 {
-    for(GameObject* object : m_allObjects)
+    void Scene::update()
     {
-        if(object->isActive()) object->update();
+        for(GameObject* object : m_allObjects)
+        {
+            if(object->isActive()) object->update();
+        }
+
+        m_colliderManager.update();
     }
 
-    m_colliderManager.update();
-}
-
-void Scene::draw()
-{
-    for(Drawable* drawable : m_allDrawables)
+    void Scene::draw()
     {
-        if(drawable->isActive()) drawable->draw();
-    }
-}
-
-void Scene::addObject(GameObject* object)
-{
-    object->setScene(this);
-
-    if(auto drawable = dynamic_cast<Drawable*>(object))
-    {
-        m_allDrawables.push_back(drawable);
-        sortDrawables();
-    }
-    if(auto collider = dynamic_cast<Collider*>(object))
-    {
-        ColliderManager::addCollider(collider);
+        for(Drawable* drawable : m_allDrawables)
+        {
+            if(drawable->isActive()) drawable->draw();
+        }
     }
 
-    m_allObjects.push_back(object);
-}
-
-void Scene::sortDrawables()
-{
-    m_allDrawables.sort(compareDrawables);
-}
-
-void Scene::insertDrawableSorted(Drawable* drawable)
-{
-    if(drawable->getDepth() < m_allDrawables.front()->getDepth())
+    void Scene::addObject(GameObject* object)
     {
-        m_allDrawables.push_front(drawable);
+        object->setScene(this);
+
+        if(auto drawable = dynamic_cast<Drawable*>(object))
+        {
+            m_allDrawables.push_back(drawable);
+            sortDrawables();
+        }
+        if(auto collider = dynamic_cast<Collider*>(object))
+        {
+            ColliderManager::addCollider(collider);
+        }
+
+        m_allObjects.push_back(object);
     }
-    if(drawable->getDepth() > m_allDrawables.back()->getDepth())
+
+    void Scene::sortDrawables()
     {
-        m_allDrawables.push_back(drawable);
+        m_allDrawables.sort(compareDrawables);
+    }
+
+    void Scene::insertDrawableSorted(Drawable* drawable)
+    {
+        if(drawable->getDepth() < m_allDrawables.front()->getDepth())
+        {
+            m_allDrawables.push_front(drawable);
+        }
+        if(drawable->getDepth() > m_allDrawables.back()->getDepth())
+        {
+            m_allDrawables.push_back(drawable);
+        }
     }
 }

@@ -1,77 +1,80 @@
 #include "Sprite.h"
 
-Sprite::Sprite(std::string filename)
+namespace e2d
 {
+    Sprite::Sprite(std::string filename)
+    {
 
-    texture = LoadTexture(filename.c_str());
-    SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
-    source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
-}
+        texture = LoadTexture(filename.c_str());
+        SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
+        source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
+    }
 
-Sprite::~Sprite()
-{
-    UnloadTexture(texture);
-}
+    Sprite::~Sprite()
+    {
+        UnloadTexture(texture);
+    }
 
-void Sprite::draw()
-{
-    float scaledTextureWidth = texture.width * scale.x;
-    float scaledTextureHeight = texture.height * scale.y;
+    void Sprite::draw()
+    {
+        float scaledTextureWidth = texture.width * scale.x;
+        float scaledTextureHeight = texture.height * scale.y;
 
-    Rectangle dest = {
-            (float) x,
-            (float) y,
-            scaledTextureWidth,
-            scaledTextureHeight
-    };
-    Vector2 origin = {
-            (float) (scaledTextureWidth / 2.0),
-            (float) (scaledTextureHeight / 2.0)
-    };
+        Rectangle dest = {
+                (float) x,
+                (float) y,
+                scaledTextureWidth,
+                scaledTextureHeight
+        };
+        Vector2 origin = {
+                (float) (scaledTextureWidth / 2.0),
+                (float) (scaledTextureHeight / 2.0)
+        };
 
-    DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
-}
+        DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+    }
 
-void Sprite::update() { }
+    void Sprite::update() { }
 
-void Sprite::setX(int x)
-{
-    this->x = x;
-}
+    void Sprite::setX(int x)
+    {
+        this->x = x;
+    }
 
-void Sprite::setY(int y)
-{
-    this->y = y;
-}
+    void Sprite::setY(int y)
+    {
+        this->y = y;
+    }
 
-void Sprite::setPosition(int x, int y)
-{
-    this->x = x;
-    this->y = y;
-}
+    void Sprite::setPosition(int x, int y)
+    {
+        this->x = x;
+        this->y = y;
+    }
 
-void Sprite::setScale(float scale)
-{
-    setScale(scale, scale);
-}
+    void Sprite::setScale(float scale)
+    {
+        setScale(scale, scale);
+    }
 
-void Sprite::setScale(float scaleX, float scaleY)
-{
-    setScaleX(scaleX);
-    setScaleY(scaleY);
-}
+    void Sprite::setScale(float scaleX, float scaleY)
+    {
+        setScaleX(scaleX);
+        setScaleY(scaleY);
+    }
 
-void Sprite::setScaleX(float scaleX)
-{
-    scale.x = scaleX;
-}
+    void Sprite::setScaleX(float scaleX)
+    {
+        scale.x = scaleX;
+    }
 
-void Sprite::setScaleY(float scaleY)
-{
-    scale.y = scaleY;
-}
+    void Sprite::setScaleY(float scaleY)
+    {
+        scale.y = scaleY;
+    }
 
-void Sprite::setRotation(float rotation)
-{
-    this->rotation = rotation;
+    void Sprite::setRotation(float rotation)
+    {
+        this->rotation = rotation;
+    }
 }

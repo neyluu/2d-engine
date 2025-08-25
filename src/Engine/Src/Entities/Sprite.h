@@ -18,9 +18,14 @@ namespace e2d
         void draw() override;
         void update() override;
 
+        void setSize(int width, int height);
+        int getWidth();
+        int getHeight();
+
     private:
-        Texture texture;
-        Rectangle source;
+        Texture m_texture;
+        Rectangle m_source;
+        Vector2 m_size;
     };
 }
 

@@ -5,20 +5,23 @@ namespace e2d
     Sprite::Sprite(std::string filename)
     {
 
-        texture = LoadTexture(filename.c_str());
-        SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
-        source = { 0.0, 0.0, (float) texture.width, (float) texture.height };
+        m_texture = LoadTexture(filename.c_str());
+        SetTextureWrap(m_texture, TEXTURE_WRAP_CLAMP);
+        m_source = {0.0, 0.0, (float) m_texture.width, (float) m_texture.height };
+
+        m_size.x = m_texture.width;
+        m_size.y = m_texture.height;
     }
 
     Sprite::~Sprite()
     {
-        UnloadTexture(texture);
+        UnloadTexture(m_texture);
     }
 
     void Sprite::draw()
     {
-        float scaledTextureWidth = texture.width * transform.scale.x;
-        float scaledTextureHeight = texture.height * transform.scale.y;
+        float scaledTextureWidth = m_size.x * transform.scale.x;
+        float scaledTextureHeight = m_size.y * transform.scale.y;
 
         Rectangle dest = {
                 transform.position.x,
@@ -31,8 +34,25 @@ namespace e2d
                 (float) (scaledTextureHeight / 2.0)
         };
 
-        DrawTexturePro(texture, source, dest, origin, transform.rotation, WHITE);
+        DrawTexturePro(m_texture, m_source, dest, origin, transform.rotation, WHITE);
     }
 
     void Sprite::update() { }
+
+    void Sprite::setSize(int width, int height)
+    {
+        m_size.x = width;
+        m_size.y = height;
+    }
+
+    int Sprite::getWidth()
+    {
+        return m_texture.width;
+    }
+
+    int Sprite::getHeight()
+    {
+        return m_texture.height;
+    }
+
 }

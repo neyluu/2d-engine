@@ -2,24 +2,24 @@
 
 namespace e2d
 {
-    BoxCollider::BoxCollider(Rectangle box)
+    BoxCollider::BoxCollider(int width, int height)
     {
-        this->m_box = box;
-    }
+        m_size.x = width;
+        m_size.y = height;
 
-    Rectangle BoxCollider::getBox()
-    {
-        return m_box;
-    }
-
-    void BoxCollider::setBox(Rectangle box)
-    {
-        this->m_box = box;
+        m_box.width = width;
+        m_box.height = height;
     }
 
     void BoxCollider::update()
     {
         Collider::update();
+
+        m_box.width  = m_size.x * transform.scale.x;
+        m_box.height = m_size.y * transform.scale.y;
+
+        m_box.x = transform.position.x - (m_box.width / 2.0f);
+        m_box.y = transform.position.y - (m_box.height / 2.0f);
     }
 
     void BoxCollider::draw()
@@ -28,6 +28,14 @@ namespace e2d
 
         DrawRectangle(m_box.x, m_box.y, m_box.width, m_box.height, WHITE);
         DrawRectangleLinesEx(m_box, 2, RED);
+
+        DrawCircle(transform.position.x, transform.position.y, 2, GREEN);
+        DrawCircle(m_box.x, m_box.y, 2, ORANGE);
+    }
+
+    Rectangle BoxCollider::getBox()
+    {
+        return m_box;
     }
 
     bool BoxCollider::checkCollision(Collider* other)
@@ -38,8 +46,6 @@ namespace e2d
 
     bool BoxCollider::collideWith(BoxCollider* other)
     {
-    //    std::cout << "rect(" << m_box.x << " " << m_box.y << " " << m_box.width << " " << m_box.height  << ") rect("
-    //            << other->m_box.x << " " << other->m_box.y << " " << other->m_box.width << " " << other->m_box.height  << ")\n";
         return (
             m_box.x < other->m_box.x + other->m_box.width &&
             m_box.x + m_box.width > other->m_box.x &&
@@ -104,6 +110,8 @@ namespace e2d
                     m_canMove.down = false;
                 }
             }
+
+            syncTransformToBox();
         }
     }
 
@@ -112,44 +120,10 @@ namespace e2d
 
     }
 
-
-    void BoxCollider::setPosition(float x, float y)
+    void BoxCollider::syncTransformToBox()
     {
-        if( ! m_isKinematic)
-        {
-            std::cout << "WARNING: Moving static collider!\n";
-            return;
-        }
-
-        int oldX = m_box.x;
-        int oldY = m_box.y;
-
-        if((x < m_box.x && m_canMove.left) || (x > m_box.x && m_canMove.right)) m_box.x = x;
-        if((y < m_box.y && m_canMove.up) || (y > m_box.y && m_canMove.down)) m_box.y= y;
-
-        m_moveVector = { x - oldX, y - oldY};
-    }
-
-    void BoxCollider::setPosition(Vector2 position)
-    {
-        setPosition(position.x, position.y);
-    }
-
-    void BoxCollider::setSize(float width, float height)
-    {
-        if( ! m_isKinematic)
-        {
-            std::cout << "WARNING: Changing size of static collider!\n";
-            return;
-        }
-
-        m_box.width = width;
-        m_box.height = height;
-    }
-
-    void BoxCollider::setSize(Vector2 size)
-    {
-        setSize(size.x, size.y);
+        transform.position.x = m_box.x + m_box.width / 2.0f;
+        transform.position.y = m_box.y + m_box.height / 2.0f;
     }
 }
 

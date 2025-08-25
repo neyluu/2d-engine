@@ -17,12 +17,12 @@ namespace e2d
 
     void Sprite::draw()
     {
-        float scaledTextureWidth = texture.width * scale.x;
-        float scaledTextureHeight = texture.height * scale.y;
+        float scaledTextureWidth = texture.width * transform.scale.x;
+        float scaledTextureHeight = texture.height * transform.scale.y;
 
         Rectangle dest = {
-                (float) x,
-                (float) y,
+                transform.position.x,
+                transform.position.y,
                 scaledTextureWidth,
                 scaledTextureHeight
         };
@@ -31,50 +31,8 @@ namespace e2d
                 (float) (scaledTextureHeight / 2.0)
         };
 
-        DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+        DrawTexturePro(texture, source, dest, origin, transform.rotation, WHITE);
     }
 
     void Sprite::update() { }
-
-    void Sprite::setX(int x)
-    {
-        this->x = x;
-    }
-
-    void Sprite::setY(int y)
-    {
-        this->y = y;
-    }
-
-    void Sprite::setPosition(int x, int y)
-    {
-        this->x = x;
-        this->y = y;
-    }
-
-    void Sprite::setScale(float scale)
-    {
-        setScale(scale, scale);
-    }
-
-    void Sprite::setScale(float scaleX, float scaleY)
-    {
-        setScaleX(scaleX);
-        setScaleY(scaleY);
-    }
-
-    void Sprite::setScaleX(float scaleX)
-    {
-        scale.x = scaleX;
-    }
-
-    void Sprite::setScaleY(float scaleY)
-    {
-        scale.y = scaleY;
-    }
-
-    void Sprite::setRotation(float rotation)
-    {
-        this->rotation = rotation;
-    }
 }

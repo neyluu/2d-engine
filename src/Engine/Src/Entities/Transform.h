@@ -7,10 +7,10 @@ namespace e2d
 {
     struct Transform
     {
+    public:
         Vector2 position { 0, 0 };
-        Vector2 size { 0, 0 };
         Vector2 scale { 1, 1 };
-        float rotation { 0 };
+        float rotation { 0 }; // degrees
     };
 }
 

@@ -1,6 +1,7 @@
 #ifndef INC_2D_ENGINE_GAMEOBJECT_H
 #define INC_2D_ENGINE_GAMEOBJECT_H
 
+#include "Transform.h"
 
 namespace e2d
 {
@@ -20,6 +21,8 @@ namespace e2d
         void setScene(Scene* scene);
 
         int getId() const;
+
+        Transform transform;
 
     protected:
         GameObject();

@@ -13,7 +13,7 @@ namespace e2d
     {
     public:
         BoxCollider() = default;
-        BoxCollider(Rectangle box);
+        BoxCollider(int width, int height);
 
         void update() override;
         void draw() override;
@@ -26,17 +26,13 @@ namespace e2d
         void moveFrom(BoxCollider* other) override;
         void moveFrom(CircleCollider* other) override;
 
-
         Rectangle getBox();
-        void setBox(Rectangle box);
-        void setPosition(float x, float y);
-        void setPosition(Vector2 position);
-        void setSize(float width, float height);
-        void setSize(Vector2 size);
 
     private:
+        void syncTransformToBox();
+
         Rectangle m_box { 0 };
-        Vector2 m_moveVector { 0 };
+        Vector2 m_size { 0 };
     };
 }
 

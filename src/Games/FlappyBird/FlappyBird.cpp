@@ -21,9 +21,18 @@ public:
         m_owner = scene;
         m_owner->addObject(&m_sprite);
 
-        m_sprite.setScale(0.1);
-        m_sprite.setScale(0.1, 1);
-        m_sprite.setX(m_positionX);
+
+        m_sprite.transform.scale.x = 0.1;
+        m_sprite.transform.scale.y = 0.1;
+
+        m_sprite.transform.position.x = m_positionX;
+        m_sprite.transform.position.y = 100;
+
+        m_sprite.transform.rotation = 33;
+
+//        m_sprite.setScale(0.1);
+//        m_sprite.setScale(0.1, 1);
+//        m_sprite.setX(m_positionX);
 
     }
 
@@ -61,43 +70,51 @@ public:
 
         m_gameScene.addObject(&mov1);
         m_gameScene.addObject(&mov2);
-
+//
         m_gameScene.addObject(&col2);
         m_gameScene.addObject(&col3);
-        m_gameScene.addObject(&col4);
-
+//        m_gameScene.addObject(&col4);
+//
         mov1.setKinematic(true);
         mov2.setKinematic(true);
         col4.setKinematic(true);
+//
+        mov1.transform.position.x = -200;
+        mov1.transform.position.y = -200;
+
+        mov2.transform.position.x = 500;
+        mov2.transform.position.y = 300;
+
+        col2.transform.position.x = 0;
+        col2.transform.position.y = 0;
+        col2.transform.scale.x = 1.5;
+
+        col3.transform.position.x = 125;
+        col3.transform.position.y = 125;
+        col3.transform.scale.y = 0.5;
 
         mov1.setOnCollideEnter([]{std::cout << "Enter\n";});
         mov1.setOnCollide([]{std::cout << "Collide!\n";});
         mov1.setOnCollideExit([]{std::cout << "Exit!\n";});
-
-        mov1.setOnCollideEnter([]{std::cout << "Enter222\n";}, col4);
-        mov1.setOnCollide([]{std::cout << "Collide!222\n";}, col4);
-        mov1.setOnCollideExit([]{std::cout << "Exit!222\n";}, col4);
-
-//        mov1.setOnCollide([]
-//                          { std::cout << "Collide!\n"; });
-
-//        mov1.setOnCollideEnter([]
-//                               {
-//                                   std::cout << "1 collides with 2!\n";
-//                               }, mov2);
-
-
-        //        mov2.setOnCollide([] {
-//            std::cout << "2 collides with 1!\n";
-//        }, mov1);
-
-
-
-
-
-
-
-
+//
+//        mov2.setOnCollideEnter([]{std::cout << "Enter\n";});
+//        mov2.setOnCollide([]{std::cout << "Collide!\n";});
+//        mov2.setOnCollideExit([]{std::cout << "Exit!\n";});
+//
+//        mov1.setOnCollideEnter([]{std::cout << "Enter222\n";}, col4);
+//        mov1.setOnCollide([]{std::cout << "Collide!222\n";}, col4);
+//        mov1.setOnCollideExit([]{std::cout << "Exit!222\n";}, col4);
+//
+//
+//        col3.transform.position.x = 350;
+//        col3.transform.position.y = 200;
+//
+//
+//
+//
+//
+//
+//
         mov1.m_isVisible = true;
         mov2.m_isVisible = true;
         col2.m_isVisible = true;
@@ -109,18 +126,21 @@ public:
     {
         handleMovingMov1();
         handleMovingMov2();
+//        col2.transform.position.x -= 1000 * GetFrameTime();
     }
 
     void handleMovingMov1()
     {
+//        mov1.transform.scale.x += 0.01;
+
         int dx = 0;
         int dy = 0;
         float dt = GetFrameTime();
 
-        Rectangle rect = mov1.getBox();
+//        Rectangle rect = mov1.getBox();
 
-        int x = rect.x;
-        int y = rect.y;
+        int x = mov1.transform.position.x;
+        int y = mov1.transform.position.y;
 
 
         float change = speed * dt;
@@ -146,7 +166,8 @@ public:
         y += dy;
 //        std::cout << dx << " " << dy << "\n";
 
-        mov1.setPosition(x, y);
+        mov1.transform.position.x = x;
+        mov1.transform.position.y = y;
     }
 
     void handleMovingMov2()
@@ -155,10 +176,8 @@ public:
         int dy = 0;
         float dt = GetFrameTime();
 
-        Rectangle rect = mov2.getBox();
-
-        int x = rect.x;
-        int y = rect.y;
+        int x = mov2.transform.position.x;
+        int y = mov2.transform.position.y;
 
 
         float change = speed * dt;
@@ -184,22 +203,26 @@ public:
         y += dy;
 //        std::cout << dx << " " << dy << "\n";
 
-        mov2.setPosition(x, y);
+        mov2.transform.position.x = x;
+        mov2.transform.position.y = y;
     }
 private:
 //    int colX = -200;
 //    int colY = 80;
-    float speed = 200;
+    float speed = 500;
 
     Scene m_gameScene {};
     Player m_player { &m_gameScene };
-    BoxCollider mov1 {Rectangle {-200, 80, 100, 100} };
-    BoxCollider mov2 {Rectangle {-200, -200, 100, 100} };
 
-    BoxCollider col2 { Rectangle {0, 0, 150, 150} };
-    BoxCollider col3 { Rectangle {-50, -50, 100, 100} };
+//    BoxCollider col { 100, 100 };
 
-    BoxCollider col4 { Rectangle {-200, 200, 420, 69} };
+    BoxCollider mov1 { 100, 100 };
+    BoxCollider mov2 { 100, 100 };
+//
+    BoxCollider col2 { 150, 150 };
+    BoxCollider col3 { 100, 100 };
+//
+    BoxCollider col4 { 420, 69 };
 
 
 };

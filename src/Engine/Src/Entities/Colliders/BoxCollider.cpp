@@ -125,5 +125,22 @@ namespace e2d
         transform.position.x = m_box.x + m_box.width / 2.0f;
         transform.position.y = m_box.y + m_box.height / 2.0f;
     }
+
+    void BoxCollider::setSize(int width, int height)
+    {
+        m_box.width = width;
+        m_box.height = height;
+    }
+
+    int BoxCollider::getWidth()
+    {
+        return m_box.width;
+    }
+
+    int BoxCollider::getHeight()
+    {
+        return m_box.height;
+    }
+
 }
 

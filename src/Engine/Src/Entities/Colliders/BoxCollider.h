@@ -28,6 +28,10 @@ namespace e2d
 
         Rectangle getBox();
 
+        void setSize(int width, int height);
+        int getWidth();
+        int getHeight();
+
     private:
         void syncTransformToBox();
 

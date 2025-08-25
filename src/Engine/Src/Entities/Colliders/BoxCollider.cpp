@@ -128,6 +128,9 @@ namespace e2d
 
     void BoxCollider::setSize(int width, int height)
     {
+        m_size.x = width;
+        m_size.y = height;
+
         m_box.width = width;
         m_box.height = height;
     }

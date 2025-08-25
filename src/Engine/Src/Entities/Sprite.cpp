@@ -47,12 +47,12 @@ namespace e2d
 
     int Sprite::getWidth()
     {
-        return m_texture.width;
+        return m_size.x;
     }
 
     int Sprite::getHeight()
     {
-        return m_texture.height;
+        return m_size.y;
     }
 
 }

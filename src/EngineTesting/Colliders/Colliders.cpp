@@ -18,6 +18,7 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colBox2);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_movColBox1);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_movColBox2);
+        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_cirCol1);
 
         m_colBox1.m_isVisible = true;
 
@@ -34,6 +35,9 @@ public:
         m_movColBox2.setKinematic(true);
         m_movColBox2.transform.position.x = 300;
         m_movColBox2.transform.position.y = 300;
+
+        m_cirCol1.transform.position.x = -100;
+        m_cirCol1.transform.position.y = -100;
     }
 
     void update() override
@@ -81,7 +85,9 @@ private:
     e2d::BoxCollider m_colBox1 { 100, 100 };
     e2d::BoxCollider m_colBox2 { 50, 150 };
     e2d::BoxCollider m_movColBox1 { 50, 50 };
-    e2d::BoxCollider m_movColBox2 { 100, 200 };
+    e2d::BoxCollider m_movColBox2 { 100, 75 };
+
+    e2d::CircleCollider m_cirCol1 { 50 };
 
     float m_movColBox1Speed = 250;
     float m_movColBox2Speed = 150;

@@ -56,7 +56,12 @@ namespace e2d
 
     bool BoxCollider::collideWith(CircleCollider* other)
     {
+//        int px = std::max(m_box.x, std::min(other->transform.position.x, m_box.x + m_size.x));
+//        int py = std::max(m_box.y, std::min(other->transform.position.y, m_box.y + m_size.y));
 
+//        std::cout << "px py " << px << " " << py << '\n';
+
+        return false;
     }
 
     void BoxCollider::pushAway(Collider* other)
@@ -117,7 +122,7 @@ namespace e2d
 
     void BoxCollider::moveFrom(CircleCollider* other)
     {
-
+        std::cout << "push\n";
     }
 
     void BoxCollider::syncTransformToBox()

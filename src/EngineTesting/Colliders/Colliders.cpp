@@ -36,6 +36,7 @@ public:
         m_movColBox2.transform.position.x = 300;
         m_movColBox2.transform.position.y = 300;
 
+        m_cirCol1.m_isVisible = true;
         m_cirCol1.transform.position.x = -100;
         m_cirCol1.transform.position.y = -100;
     }

@@ -2,6 +2,8 @@
 #define INC_2D_ENGINE_CIRCLECOLLIDER_H
 
 #include "Collider.h"
+#include "BoxCollider.h"
+
 
 namespace e2d
 {

@@ -46,6 +46,8 @@ namespace e2d
 
     bool BoxCollider::collideWith(BoxCollider* other)
     {
+//        TODO replace with Raylib implementation -> CheckCollisionRect
+
         return (
             m_box.x < other->m_box.x + other->m_box.width &&
             m_box.x + m_box.width > other->m_box.x &&
@@ -56,12 +58,7 @@ namespace e2d
 
     bool BoxCollider::collideWith(CircleCollider* other)
     {
-//        int px = std::max(m_box.x, std::min(other->transform.position.x, m_box.x + m_size.x));
-//        int py = std::max(m_box.y, std::min(other->transform.position.y, m_box.y + m_size.y));
-
-//        std::cout << "px py " << px << " " << py << '\n';
-
-        return false;
+        return CheckCollisionCircleRec(other->transform.position, (float) other->getRadius(), m_box);
     }
 
     void BoxCollider::pushAway(Collider* other)
@@ -122,8 +119,8 @@ namespace e2d
 
     void BoxCollider::moveFrom(CircleCollider* other)
     {
-        float closestX =   fmaxf(m_box.x, fminf(other->transform.position.x, m_box.x + m_box.width));
-        float closestY =   fmaxf(m_box.y, fminf(other->transform.position.y, m_box.y + m_box.height));
+        float closestX = fmaxf(m_box.x, fminf(other->transform.position.x, m_box.x + m_box.width));
+        float closestY = fmaxf(m_box.y, fminf(other->transform.position.y, m_box.y + m_box.height));
 
         float dx = closestX - other->transform.position.x;
         float dy = closestY - other->transform.position.y;

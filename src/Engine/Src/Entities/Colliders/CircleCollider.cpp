@@ -37,7 +37,6 @@ namespace e2d
 
     void CircleCollider::pushAway(Collider *other)
     {
-        std::cout << "test\n";
         other->moveFrom(this);
     }
 

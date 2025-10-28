@@ -122,22 +122,30 @@ namespace e2d
 
     void BoxCollider::moveFrom(CircleCollider* other)
     {
-        std::cout << "push\n";
+        float closestX =   fmaxf(m_box.x, fminf(other->transform.position.x, m_box.x + m_box.width));
+        float closestY =   fmaxf(m_box.y, fminf(other->transform.position.y, m_box.y + m_box.height));
 
+        float dx = closestX - other->transform.position.x;
+        float dy = closestY - other->transform.position.y;
 
-        float boxCenterX = transform.position.x;
-        float boxCenterY = transform.position.y;
-        float circleCenterX = other->transform.position.x;
-        float circleCenterY = other->transform.position.y;
+        float distance = sqrtf(dx * dx + dy * dy);
+        float overlap = other->getRadius() - distance;
 
-        Vector2 boxCenter = {boxCenterX, boxCenterY};
-        Vector2 circleCenter = {circleCenterX, circleCenterY};
+        if(distance != 0)
+        {
+            dx = (dx / distance) * overlap;
+            dy = (dy / distance) * overlap;
+        }
+        else
+        {
+            dx = 0;
+            dy = -overlap;
+        }
 
-        float distance = Vector2Distance(boxCenter, circleCenter);
-        float angle = Vector2Angle(boxCenter, circleCenter);
-        printf("%f %d %f \n", distance, other->getRadius(), angle);
+        m_box.x += dx;
+        m_box.y += dy;
 
-
+        syncTransformToBox();
     }
 
     void BoxCollider::syncTransformToBox()

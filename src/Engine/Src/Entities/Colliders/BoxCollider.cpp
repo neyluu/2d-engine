@@ -46,14 +46,7 @@ namespace e2d
 
     bool BoxCollider::collideWith(BoxCollider* other)
     {
-//        TODO replace with Raylib implementation -> CheckCollisionRect
-
-        return (
-            m_box.x < other->m_box.x + other->m_box.width &&
-            m_box.x + m_box.width > other->m_box.x &&
-            m_box.y < other->m_box.y + other->m_box.height &&
-            m_box.y + m_box.height > other->m_box.y
-        );
+        return CheckCollisionRecs(m_box, other->m_box);
     }
 
     bool BoxCollider::collideWith(CircleCollider* other)

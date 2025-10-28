@@ -123,6 +123,21 @@ namespace e2d
     void BoxCollider::moveFrom(CircleCollider* other)
     {
         std::cout << "push\n";
+
+
+        float boxCenterX = transform.position.x;
+        float boxCenterY = transform.position.y;
+        float circleCenterX = other->transform.position.x;
+        float circleCenterY = other->transform.position.y;
+
+        Vector2 boxCenter = {boxCenterX, boxCenterY};
+        Vector2 circleCenter = {circleCenterX, circleCenterY};
+
+        float distance = Vector2Distance(boxCenter, circleCenter);
+        float angle = Vector2Angle(boxCenter, circleCenter);
+        printf("%f %d %f \n", distance, other->getRadius(), angle);
+
+
     }
 
     void BoxCollider::syncTransformToBox()

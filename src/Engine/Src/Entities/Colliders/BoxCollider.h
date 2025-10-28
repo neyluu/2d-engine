@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "raylib.h"
+#include "raymath.h"
 #include "Collider.h"
 #include "CircleCollider.h"
 

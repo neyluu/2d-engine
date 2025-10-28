@@ -22,7 +22,7 @@ namespace e2d
 
     bool CircleCollider::checkCollision(Collider *other)
     {
-
+        return false;
     }
 
     bool CircleCollider::collideWith(BoxCollider *other)

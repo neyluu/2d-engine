@@ -13,12 +13,15 @@ class CollidersTest : public e2d::GameObject
 public:
     CollidersTest()
     {
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(this);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colBox1);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colBox2);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_movColBox1);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_movColBox2);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_cirCol1);
+        e2d::Scene *scene = e2d::SceneManager<SceneType>::get().getCurrentScene();
+
+        scene->addObject(this);
+        scene->addObject(&m_colBox1);
+        scene->addObject(&m_colBox2);
+        scene->addObject(&m_movColBox1);
+        scene->addObject(&m_movColBox2);
+        scene->addObject(&m_cirCol1);
+        scene->addObject(&m_movCir1);
 
         m_colBox1.m_isVisible = true;
 
@@ -39,6 +42,11 @@ public:
         m_cirCol1.m_isVisible = true;
         m_cirCol1.transform.position.x = -100;
         m_cirCol1.transform.position.y = -100;
+
+        m_movCir1.m_isVisible = true;
+        m_movCir1.setKinematic(true);
+        m_cirCol1.transform.position.x = 0;
+        m_movCir1.transform.position.y = 300;
     }
 
     void update() override
@@ -80,6 +88,25 @@ public:
         {
             m_movColBox2.transform.position.x -= m_movColBox2Speed * dt;
         }
+
+
+        if(IsKeyDown(KEY_U))
+        {
+            m_movCir1.transform.position.y -= m_movCir1Speed * dt;
+        }
+        if(IsKeyDown(KEY_K))
+        {
+            m_movCir1.transform.position.x += m_movCir1Speed * dt;
+        }
+        if(IsKeyDown(KEY_J))
+        {
+            m_movCir1.transform.position.y += m_movCir1Speed * dt;
+        }
+        if(IsKeyDown(KEY_H))
+        {
+            m_movCir1.transform.position.x -= m_movCir1Speed * dt;
+        }
+
     }
     
 private:
@@ -89,9 +116,13 @@ private:
     e2d::BoxCollider m_movColBox2 { 100, 75 };
 
     e2d::CircleCollider m_cirCol1 { 50 };
+    e2d::CircleCollider m_movCir1 { 50 };
 
     float m_movColBox1Speed = 250;
     float m_movColBox2Speed = 150;
+    float m_movCir1Speed = 150;
+
+
 };
 
 int main()

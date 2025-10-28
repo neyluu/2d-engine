@@ -4,6 +4,7 @@ project(2d_engine)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+SET(CMAKE_CXX_FLAGS  "-Werror")
 
 add_subdirectory(src/Engine)
 

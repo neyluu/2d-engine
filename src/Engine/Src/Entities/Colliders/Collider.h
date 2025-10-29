@@ -52,10 +52,14 @@ namespace e2d
         bool isKinematic() const;
         void setKinematic(bool isKinematic);
 
-        bool m_isVisible = false;
+        bool isTrigger() const;
+        void setTrigger(bool isTrigger);
+
+        bool isVisible = false;
     protected:
         CanMove m_canMove;
         bool m_isKinematic = false;
+        bool m_isTrigger = false;
     private:
         void addTo(std::vector<Collider*>& vector);
         void removeFrom(std::vector<Collider*>& vector);

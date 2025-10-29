@@ -23,27 +23,27 @@ public:
         scene->addObject(&m_cirCol1);
         scene->addObject(&m_movCir1);
 
-        m_colBox1.m_isVisible = true;
+        m_colBox1.isVisible = true;
 
-        m_colBox2.m_isVisible = true;
+        m_colBox2.isVisible = true;
         m_colBox2.transform.position.x = -200;
         m_colBox2.transform.position.y = -200;
 
-        m_movColBox1.m_isVisible = true;
+        m_movColBox1.isVisible = true;
         m_movColBox1.setKinematic(true);
         m_movColBox1.transform.position.x = -300;
         m_movColBox1.transform.position.y = -300;
 
-        m_movColBox2.m_isVisible = true;
+        m_movColBox2.isVisible = true;
         m_movColBox2.setKinematic(true);
         m_movColBox2.transform.position.x = 300;
         m_movColBox2.transform.position.y = 300;
 
-        m_cirCol1.m_isVisible = true;
+        m_cirCol1.isVisible = true;
         m_cirCol1.transform.position.x = -100;
         m_cirCol1.transform.position.y = -100;
 
-        m_movCir1.m_isVisible = true;
+        m_movCir1.isVisible = true;
         m_movCir1.setKinematic(true);
         m_cirCol1.transform.position.x = 0;
         m_movCir1.transform.position.y = 300;

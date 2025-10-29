@@ -14,7 +14,7 @@ namespace e2d
 
     void CircleCollider::draw()
     {
-        if( ! m_isVisible) return;
+        if( ! isVisible) return;
 
         DrawCircle(transform.position.x, transform.position.y, m_radius, WHITE);
         DrawCircle(transform.position.x, transform.position.y, 2, GREEN);
@@ -38,6 +38,7 @@ namespace e2d
 
     void CircleCollider::pushAway(Collider *other)
     {
+        if(m_isTrigger) return;
         other->moveFrom(this);
     }
 

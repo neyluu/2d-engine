@@ -30,6 +30,9 @@ namespace e2d
                 if(kinematicCollider->checkCollision(otherKinematic))
                 {
                     handleCollision(kinematicCollider, otherKinematic);
+
+                    // Kinematic collider should explicitly perform some action on other kinematic,
+                    // so automatic push is disabled
     //                staticCollider->pushAway(kinematicCollider);
                 }
             }
@@ -59,6 +62,21 @@ namespace e2d
         // OnExit is called inside Collider update,
         // here only ids of collider for which onExit should be called is added
         first->m_onExitCallsIds.insert(second->getId());
+
+
+//        TODO CAUSE DOUBLE ON ENTER, BUT WHY?
+
+        second->collide();
+
+        second->onCollideEnter();
+        second->onCollideEnter(*first);
+
+        second->onCollide();
+        second->onCollide(*first);
+
+        // OnExit is called inside Collider update,
+        // here only ids of collider for which onExit should be called is added
+        second->m_onExitCallsIds.insert(first->getId());
     }
 }
 

@@ -24,7 +24,7 @@ namespace e2d
 
     void BoxCollider::draw()
     {
-        if( ! m_isVisible) return;
+        if( ! isVisible) return;
 
         DrawRectangle(m_box.x, m_box.y, m_box.width, m_box.height, WHITE);
         DrawRectangleLinesEx(m_box, 2, RED);
@@ -56,6 +56,7 @@ namespace e2d
 
     void BoxCollider::pushAway(Collider* other)
     {
+        if(m_isTrigger) return;
         other->moveFrom(this);
     }
 

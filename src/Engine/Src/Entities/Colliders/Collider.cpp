@@ -45,6 +45,15 @@ namespace e2d
         }
     }
 
+    bool Collider::isTrigger() const
+    {
+        return m_isTrigger;
+    }
+    void Collider::setTrigger(bool isTrigger)
+    {
+        m_isTrigger = isTrigger;
+    }
+
     void Collider::addTo(std::vector<Collider*>& vector)
     {
         vector.push_back(this);

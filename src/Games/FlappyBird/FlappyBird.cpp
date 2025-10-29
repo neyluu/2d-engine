@@ -22,6 +22,7 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_bottom);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderTop);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderBottom);
+        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_trigger);
 
         m_colliderTop.setDepth(1000);
         m_colliderBottom.setDepth(1000);
@@ -33,6 +34,12 @@ public:
 //        m_colliderBottom.m_isVisible = true;
 
         m_top.transform.rotation = 180;
+
+
+        m_trigger.isVisible = true;
+        m_trigger.setKinematic(false);
+        m_trigger.setTrigger(true);
+
 
         updatePositions();
     }
@@ -59,6 +66,9 @@ public:
 
         m_colliderBottom.transform.position.x = transform.position.x;
         m_colliderBottom.transform.position.y = transform.position.y + 200 + pipesOffset;
+
+        m_trigger.transform.position.x = transform.position.x;
+        m_trigger.transform.position.y = transform.position.y;
     }
 
     void gameOver()
@@ -71,16 +81,22 @@ private:
     e2d::Sprite m_bottom { "Assets/pipe-green.png" };
     e2d::BoxCollider m_colliderTop { 10, 10};
     e2d::BoxCollider m_colliderBottom { 10, 10};
+    e2d::BoxCollider m_trigger { 50, 200 };
 
     int pipesOffset = 100;
     bool isGameOver = false;
+
+    friend class PipesGenerator;
 };
 
+
+class Player;
 
 class PipesGenerator : public e2d::GameObject
 {
 public:
-    PipesGenerator()
+    PipesGenerator(const e2d::Collider &playerCollider, std::function<void()> onCollide, std::function<void()> onTrigger)
+        : playerCollider(playerCollider), onCollide(onCollide), onTrigger(onTrigger)
     {
         generateNewPipes();
     }
@@ -113,6 +129,10 @@ public:
         pipes->transform.position.x = e2d::Settings::WINDOW_WIDTH / 2 + 50;
         pipes->transform.position.y = GetRandomValue(-200, 200);
 
+        pipes->m_colliderTop.setOnCollide(onCollide, playerCollider);
+        pipes->m_colliderBottom.setOnCollide(onCollide, playerCollider);
+        pipes->m_trigger.setOnCollideEnter(onTrigger, playerCollider);
+
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(pipes);
     }
 
@@ -127,6 +147,10 @@ public:
     }
 
 private:
+    const e2d::Collider& playerCollider;
+    std::function<void()> onCollide;
+    std::function<void()> onTrigger;
+
     float counter = 0;
     float generationTime = 3;
     bool isGameOver = false;
@@ -147,9 +171,10 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_collider);
 
         m_sprite.setSize(100, 100);
+
         m_collider.setKinematic(true);
-        m_collider.setSize(m_sprite.getWidth(), m_sprite.getHeight());
-//        m_collider.m_isVisible = true;
+        m_collider.isVisible = true;
+        m_collider.setDepth(-1);
 
         updatePositions();
     }
@@ -192,7 +217,8 @@ public:
         isGameOver = true;
     }
 
-    e2d::BoxCollider m_collider { 100, 100 };
+    e2d::CircleCollider m_collider { 30 };
+
 private:
     e2d::Sprite m_sprite {"Assets/bird.png" };
 
@@ -213,7 +239,7 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_player);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_pipesGenerator);
 
-        m_player.m_collider.setOnCollideEnter([this]{ gameOver(); });
+//        m_player.m_collider.setOnCollideEnter([this]{ gameOver(); });
     }
 
     void update() override
@@ -228,9 +254,21 @@ public:
         m_pipesGenerator.gameOver();
     }
 
+    void addPoint()
+    {
+        m_points++;
+        std::cout << "Points: " << m_points << "\n";
+    }
+
 private:
     Player m_player {};
-    PipesGenerator m_pipesGenerator {};
+    PipesGenerator m_pipesGenerator {
+        m_player.m_collider,
+        [this]{ gameOver(); },
+        [this]{ addPoint(); }
+    };
+
+    int m_points = 0;
 };
 
 

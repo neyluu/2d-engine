@@ -20,26 +20,31 @@ public:
 
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_top);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_bottom);
+        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_coin);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderTop);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderBottom);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_trigger);
 
-        m_colliderTop.setDepth(1000);
-        m_colliderBottom.setDepth(1000);
+        {
+            m_top.setDepth(-2);
+            m_top.transform.rotation = 180;
+            m_bottom.setDepth(-2);
 
-        m_colliderTop.setSize(m_top.getWidth(), m_top.getHeight());
-        m_colliderBottom.setSize(m_bottom.getWidth(), m_bottom.getHeight());
+            m_colliderTop.setDepth(1000);
+            m_colliderBottom.setDepth(1000);
 
-//        m_colliderTop.m_isVisible = true;
-//        m_colliderBottom.m_isVisible = true;
+            m_colliderTop.setSize(m_top.getWidth(), m_top.getHeight());
+            m_colliderBottom.setSize(m_bottom.getWidth(), m_bottom.getHeight());
+        }
+        {
+            m_coin.transform.scale.x = 2;
+            m_coin.transform.scale.y = 2;
+            m_coin.setDepth(-3);
 
-        m_top.transform.rotation = 180;
-
-
-        m_trigger.isVisible = true;
-        m_trigger.setKinematic(false);
-        m_trigger.setTrigger(true);
-
+//            m_trigger.isVisible = true;
+            m_trigger.setKinematic(false);
+            m_trigger.setTrigger(true);
+        }
 
         updatePositions();
     }
@@ -61,14 +66,24 @@ public:
         m_top.transform.position.x = transform.position.x;
         m_bottom.transform.position.x = transform.position.x;
 
+
         m_colliderTop.transform.position.x = transform.position.x;
         m_colliderTop.transform.position.y = transform.position.y - 200 - pipesOffset;
 
         m_colliderBottom.transform.position.x = transform.position.x;
         m_colliderBottom.transform.position.y = transform.position.y + 200 + pipesOffset;
 
+        m_coin.transform.position.x = transform.position.x;
+        m_coin.transform.position.y = transform.position.y;
+
         m_trigger.transform.position.x = transform.position.x;
         m_trigger.transform.position.y = transform.position.y;
+    }
+
+    void disableCoin()
+    {
+        m_coin.disable();
+        m_trigger.disable();
     }
 
     void gameOver()
@@ -79,9 +94,10 @@ public:
 private:
     e2d::Sprite m_top { "Assets/pipe-green.png" };
     e2d::Sprite m_bottom { "Assets/pipe-green.png" };
+    e2d::Sprite m_coin { "Assets/coin.png" };
     e2d::BoxCollider m_colliderTop { 10, 10};
     e2d::BoxCollider m_colliderBottom { 10, 10};
-    e2d::BoxCollider m_trigger { 50, 200 };
+    e2d::CircleCollider m_trigger { 35 };
 
     int pipesOffset = 100;
     bool isGameOver = false;
@@ -131,7 +147,13 @@ public:
 
         pipes->m_colliderTop.setOnCollide(onCollide, playerCollider);
         pipes->m_colliderBottom.setOnCollide(onCollide, playerCollider);
-        pipes->m_trigger.setOnCollideEnter(onTrigger, playerCollider);
+        pipes->m_trigger.setOnCollideEnter(
+            [this, pipes]
+            {
+                pipes->disableCoin();
+                onTrigger();
+            },
+            playerCollider);
 
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(pipes);
     }
@@ -171,9 +193,10 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_collider);
 
         m_sprite.setSize(100, 100);
+        m_sprite.setDepth(-2);
 
+//        m_collider.isVisible = true;
         m_collider.setKinematic(true);
-        m_collider.isVisible = true;
         m_collider.setDepth(-1);
 
         updatePositions();
@@ -230,12 +253,13 @@ private:
 };
 
 
-class Game : public e2d::GameObject
+class Game : public e2d::Drawable
 {
 public:
     Game()
     {
         SetWindowTitle("Flappy Bird");
+        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(this);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_player);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_pipesGenerator);
 
@@ -245,6 +269,14 @@ public:
     void update() override
     {
 
+    }
+
+    void draw() override
+    {
+        std::string points = "Points: " + std::to_string(m_points);
+        const char * points_c = points.c_str();
+        int textLen = (int) MeasureText(points_c, m_pointsFontsSize);
+        DrawText(points_c, -(textLen / 2), -300, m_pointsFontsSize, WHITE);
     }
 
     void gameOver()
@@ -269,6 +301,9 @@ private:
     };
 
     int m_points = 0;
+
+    int m_pointsFontsSize = 48;
+    Color m_pointsFontColor = WHITE;
 };
 
 

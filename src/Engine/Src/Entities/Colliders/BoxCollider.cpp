@@ -27,7 +27,7 @@ namespace e2d
         if( ! isVisible) return;
 
         DrawRectangle(m_box.x, m_box.y, m_box.width, m_box.height, WHITE);
-        DrawRectangleLinesEx(m_box, 2, RED);
+        DrawRectangleLinesEx(m_box, 2, isTrigger() ? LIME : RED);
 
         DrawCircle(transform.position.x, transform.position.y, 2, GREEN);
         DrawCircle(m_box.x, m_box.y, 2, ORANGE);

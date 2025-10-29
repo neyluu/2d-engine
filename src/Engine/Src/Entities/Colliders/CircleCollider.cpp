@@ -18,6 +18,7 @@ namespace e2d
 
         DrawCircle(transform.position.x, transform.position.y, m_radius, WHITE);
         DrawCircle(transform.position.x, transform.position.y, 2, GREEN);
+        DrawCircleLines(transform.position.x, transform.position.y, m_radius, isTrigger() ? LIME : RED);
     }
 
     bool CircleCollider::checkCollision(Collider *other)

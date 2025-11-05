@@ -37,6 +37,8 @@ target_sources(Engine PRIVATE
         Src/Entities/GameObject.h
         Src/Entities/Sprite.cpp
         Src/Entities/Sprite.h
+        Src/Entities/SpriteAnimation.cpp
+        Src/Entities/SpriteAnimation.h
         Src/Entities/Drawable.cpp
         Src/Entities/Drawable.h
         Src/Entities/Colliders/Collider.cpp

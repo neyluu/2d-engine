@@ -192,6 +192,7 @@ public:
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_sprite);
         e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_collider);
 
+        m_sprite.animationTime = 0.4;
         m_sprite.setSize(100, 100);
         m_sprite.setDepth(-2);
 
@@ -243,7 +244,7 @@ public:
     e2d::CircleCollider m_collider { 30 };
 
 private:
-    e2d::Sprite m_sprite {"Assets/bird.png" };
+    e2d::SpriteAnimation m_sprite { "Assets/birdAnimations/birdVertical.png", 4 };
 
     float velocityY = 10;
     float gravity = 2000;

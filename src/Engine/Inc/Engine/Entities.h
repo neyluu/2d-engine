@@ -4,6 +4,7 @@
 #include "../../Src/Entities/GameObject.h"
 #include "../../Src/Entities/Drawable.h"
 #include "../../Src/Entities/Sprite.h"
+#include "../../Src/Entities/SpriteAnimation.h"
 
 #include "Entities/Colliders/BoxCollider.h"
 #include "Entities/Colliders/CircleCollider.h"

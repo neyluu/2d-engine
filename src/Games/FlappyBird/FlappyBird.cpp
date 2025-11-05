@@ -244,7 +244,7 @@ public:
     e2d::CircleCollider m_collider { 30 };
 
 private:
-    e2d::SpriteAnimation m_sprite { "Assets/birdAnimations/birdVertical.png", 4 };
+    e2d::SpriteAnimation m_sprite { "Assets/birdAnimations/birdHorizontal.png", 4 };
 
     float velocityY = 10;
     float gravity = 2000;

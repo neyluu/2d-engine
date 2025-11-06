@@ -2,7 +2,8 @@ IDEAS
 1. Resource manager to load textures -> goal is to avoid loading the same texture multiple times
 2. Particles 
    - Some kind of generator
-3. Animations
+3. Object pooling 
+4. Animations
    - Loading gifs in SpriteAnimation
 
 

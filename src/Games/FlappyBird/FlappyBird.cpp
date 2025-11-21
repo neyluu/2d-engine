@@ -18,12 +18,14 @@ public:
         transform.position.x = 100;
         transform.position.y = 100;
 
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_top);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_bottom);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_coin);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderTop);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_colliderBottom);
-        e2d::SceneManager<SceneType>::get().getCurrentScene()->addObject(&m_trigger);
+        e2d::Scene *scene = e2d::SceneManager<SceneType>::get().getCurrentScene();
+
+        scene->addObject(&m_top);
+        scene->addObject(&m_bottom);
+        scene->addObject(&m_coin);
+        scene->addObject(&m_colliderTop);
+        scene->addObject(&m_colliderBottom);
+        scene->addObject(&m_trigger);
 
         {
             m_top.setDepth(-2);

@@ -5,6 +5,7 @@
 #include "../../Src/Entities/Drawable.h"
 #include "../../Src/Entities/Sprite.h"
 #include "../../Src/Entities/SpriteAnimation.h"
+#include "../../Src/Entities/ObjectPool.h"
 
 #include "Entities/Colliders/BoxCollider.h"
 #include "Entities/Colliders/CircleCollider.h"
